@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     'melody.core',
     'melody.posts',
+    'melody.realtime',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +43,6 @@ TEMPLATES = [
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'asgiref.inmemory.ChannelLayer',
-        'ROUTING': 'melody.channels.routing.routes',
+        'ROUTING': 'melody.realtime.routing.routes',
     }
 }
