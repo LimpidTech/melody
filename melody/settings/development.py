@@ -32,3 +32,7 @@ DATABASES = {
     'NAME': project_path(env_value('DATABASE_FILENAME', 'melody.sqlite3')),
   },
 }
+
+INTERNAL_IPS = [
+  '127.0.0.1',
+]
