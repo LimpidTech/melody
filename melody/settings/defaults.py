@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
 
     'channels',
+    'rest_framework',
 
     'melody.core',
     'melody.posts',
@@ -51,4 +52,11 @@ CHANNEL_LAYERS = {
         'BACKEND': 'asgiref.inmemory.ChannelLayer',
         'ROUTING': 'melody.realtime.routing.routes',
     }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
 }
