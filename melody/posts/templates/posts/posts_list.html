@@ -1,0 +1,6 @@
+{% extends "core/base.html" %}
+
+
+{% block content %}
+    <ol>{% for post in posts %}<li>{{ post }}</li>{% endfor %}<ol>
+{% endblock content %}

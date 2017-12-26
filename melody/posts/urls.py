@@ -1,3 +1,7 @@
-from django.conf import urls
+from django import urls
 
-urlpatterns = ()
+from . import views
+
+urlpatterns = [
+    urls.path('', views.posts_list)
+]
