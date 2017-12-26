@@ -6,6 +6,7 @@ from . import models
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
+        depth = 2
         model = models.Post
         fields = ('url', 'subject', 'body', 'categories')
 
@@ -17,6 +18,7 @@ routing.router.register(r'posts', PostViewSet)
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
+        depth = 2
         model = models.Category
         fields = ('url', 'name', 'posts')
 
