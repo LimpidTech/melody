@@ -4,6 +4,8 @@ import os
 def env_value(name, default=None):
     return os.environ.get(f'MELODY_${name.upper()}', default)
 
+def project_path(*paths):
+    return os.path.join(os.getcwd(), *paths)
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -11,6 +13,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
+
+    'channels',
 
     'melody.core',
     'melody.posts',
@@ -34,3 +38,10 @@ TEMPLATES = [
         }
     },
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgiref.inmemory.ChannelLayer',
+        'ROUTING': 'melody.channels.routing.routes',
+    }
+}
