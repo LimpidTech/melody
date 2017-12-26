@@ -15,17 +15,20 @@ MEDIA_ROOT = project_path('media')
 
 INSTALLED_APPS += [
     'django.contrib.staticfiles',
+    'debug_toolbar',
 ]
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-# settings.py
+MIDDLEWARE += [
+  'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': project_path(env_value('DATABASE_FILENAME', 'melody.sqlite3')),
-  }
+  },
 }
-
