@@ -9,11 +9,27 @@
         font-family: 'Didact Gothic', sans-serif;
         font-size: 1.4em;
       }
+
+      main {
+        margin: 0 0 0 3rem;
+        max-width: 42rem;
+      }
+
+      main > section > header ~ * {
+        margin-left: 1rem;
+      }
     </style>
   </html>
 
   <body>
-    <header><h3>Melody</h3></header>
-    {% block content %}{% endblock content %}
+    <main>
+      <section>
+        <header>
+          <h3>Melody</h3>
+        </header>
+
+        {% block content %}{% endblock content %}
+      </section>
+    </main>
   </body>
 </html>

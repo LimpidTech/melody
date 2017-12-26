@@ -2,5 +2,10 @@
 
 
 {% block content %}
-    <ol>{% for post in posts %}<li>{{ post }}</li>{% endfor %}<ol>
+    {% for post in posts %}
+    <article>
+        <header><h3>{{ post.subject }}</h3></header>
+        <p>{{ post.body }}</p>
+    </article>
+    {% endfor %}
 {% endblock content %}
