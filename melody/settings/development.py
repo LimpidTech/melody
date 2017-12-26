@@ -20,3 +20,12 @@ INSTALLED_APPS += [
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+# settings.py
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': project_path(env_value('DATABASE_FILENAME', 'melody.sqlite3')),
+  }
+}
+
