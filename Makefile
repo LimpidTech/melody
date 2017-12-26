@@ -1,5 +1,5 @@
 bin/melody.pex: bin/tox
-	tox package
+	tox -e package
 
 bin/tox:
 	pex tox -c tox -o $@
