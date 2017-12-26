@@ -10,12 +10,11 @@ ROOT_URLCONF = 'melody.core.urls.development'
 SECRET_KEY = env_value('secret_key', 'diagonal stunning powder ledge employ dealer')
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = project_path('static')
-
-
-MEDIA_URL = '/media/'
+FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
 MEDIA_ROOT = project_path('media')
+MEDIA_URL = '/media/'
+STATIC_ROOT = project_path('static')
+STATIC_URL = '/static/'
 
 
 INSTALLED_APPS += [

@@ -11,7 +11,7 @@ def get_template_path(*args):
 
 
 def posts_list(request):
-    return shortcuts.render_to_response(get_template_path('posts_list.html'), context={
+    return shortcuts.render(request, get_template_path('posts_list.html'), {
         'request': request,
         'posts': models.Post.objects.all(),
-    })
+    }, content_type='text/html')

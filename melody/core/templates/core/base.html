@@ -1,35 +1,14 @@
 <html>
-  <html>
+  <head>
     <title>melody</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
 
-    <style>
-      body {
-        font-family: 'Didact Gothic', sans-serif;
-        font-size: 1.4em;
-      }
-
-      main {
-        margin: 0 0 0 3rem;
-        max-width: 42rem;
-      }
-
-      main > section > header ~ * {
-        margin-left: 1rem;
-      }
-    </style>
-  </html>
+    <style>body { font-family: 'Didact Gothic', sans-serif; font-size: 1.4em; }</style>
+  </head>
 
   <body>
-    <main>
-      <section>
-        <header>
-          <h3>Melody</h3>
-        </header>
-
-        {% block content %}{% endblock content %}
-      </section>
-    </main>
+    <section id="root"></section>
+    <script src='{{ frontend_url }}index.js'></script>
   </body>
 </html>
