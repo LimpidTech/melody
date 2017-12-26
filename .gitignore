@@ -1,0 +1,11 @@
+# Build artifacts
+bin/*
+*.egg-info
+
+# Cache files
+__pycache__/*
+*.pyc
+
+# Non-git hidden files
+.*
+!.git*
