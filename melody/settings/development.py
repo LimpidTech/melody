@@ -19,6 +19,8 @@ MEDIA_ROOT = project_path('media')
 
 
 INSTALLED_APPS += [
+    'livereload',  # LiveReload needs to precede staticfiles
+
     'django.contrib.staticfiles',
     'debug_toolbar',
 ]
