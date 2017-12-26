@@ -9,12 +9,7 @@ class Post(models.UUIDModel):
 class Category(models.UUIDModel):
     name = models.TextField()
 
-    posts = models.ManyToManyField(
-        Post,
-        related_name='cateogores',
-        null=True,
-        blank=True,
-    )
+    posts = models.ManyToManyField(Post, related_name='categories', blank=True)
 
     parent = models.ForeignKey(
         'self',
