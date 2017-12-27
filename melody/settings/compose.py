@@ -6,3 +6,14 @@ CACHES = {
         'LOCATION': 'memcached:11211',
     }
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'melody',
+        'USER': 'MelodyUser',
+        'PASSWORD': 'MelodyDevelopment',
+        'HOST': 'postgres',
+        'PORT': '5432',
+    }
+}
