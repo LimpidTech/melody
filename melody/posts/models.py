@@ -25,3 +25,9 @@ class Category(models.CreateUpdateModelMixin, models.UUIDModel):
         null=True,
         blank=True,
     )
+
+    def save(self, *args, **kwargs):
+        if self.parent == self:
+            self.parent = None
+
+        return super(Category, self).save(*args, **kwargs)

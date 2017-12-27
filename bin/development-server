@@ -8,16 +8,15 @@ source ../shared/bin/activate
 pip install -U setuptools
 
 restart_server() {
-        python setup.py develop
-        python -m melody migrate
-
-        python -m melody runserver 0.0.0.0:8000 &
-        python_pid=$?
+  python setup.py develop
+  python -m melody migrate
+  python -m melody runserver 0.0.0.0:8000 &
+  python_pid=$?
 }
 
 restart_server
 
 watch_files=("$0" setup.* bin/*-server melody/**/migrations melody/settings/compose.py)
 while inotifywait -e close_write $watch_files; do
-        restart_server
+  restart_server
 done
