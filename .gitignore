@@ -1,7 +1,7 @@
 # Build artifacts
-bin/*
 *.egg-info
-!bin/melody
+*.pex
+bin/melody
 
 # Cache files
 __pycache__/*

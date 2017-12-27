@@ -1,0 +1,15 @@
+from rest_framework import viewsets
+
+from melody.posts import models
+
+from . import serializers
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerializer
