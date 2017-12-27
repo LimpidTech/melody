@@ -9,6 +9,7 @@ class Model(Model):
 
     id = None
 
+
 class UUIDModel(Model):
     class Meta(object):
         abstract = True
@@ -18,3 +19,7 @@ class UUIDModel(Model):
     def __str__(self):
         return str(self.pk)
 
+
+class CreateUpdateModelMixin(object):
+    created = DateTimeField(auto_now_add=True, editable=False)
+    last_modified = DateTimeField(auto_now=True, editable=False)
