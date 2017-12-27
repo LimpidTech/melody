@@ -7,8 +7,10 @@ class Post(models.UUIDModel):
 
 
 class Category(models.UUIDModel):
-    name = models.TextField()
+    class Meta(object):
+        verbose_name_plural = 'categories'
 
+    name = models.TextField()
     posts = models.ManyToManyField(Post, related_name='categories', blank=True)
 
     parent = models.ForeignKey(
