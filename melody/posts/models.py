@@ -1,21 +1,24 @@
-from zope.interface import implements
+from django.contrib.auth import models as auth_models
+from zope.interface import implementer
 
 from melody.core import models
 
-from . import collections
+from . import collection
 
 
 class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
     subject = models.TextField()
     body = models.TextField()
 
+    author = models.ForeignKey(
+        auth_models.User,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
-class Category(models.CreateUpdateModelMixin, models.UUIDModel):
-    implements(collections.Collection)
 
-    class Meta(object):
-        verbose_name_plural = 'categories'
-
+@implementer(collection.Collection)
+class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
     name = models.TextField()
 
     posts = models.ManyToManyField(
@@ -25,6 +28,12 @@ class Category(models.CreateUpdateModelMixin, models.UUIDModel):
         editable=False,
     )
 
+    class Meta(object):
+        verbose_name_plural = 'categories'
+
+
+@implementer(collection.Collection)
+class Category(Topic):
     parent = models.ForeignKey(
         'self',
         on_delete=models.DO_NOTHING,
@@ -37,3 +46,6 @@ class Category(models.CreateUpdateModelMixin, models.UUIDModel):
             self.parent = None
 
         return super(Category, self).save(*args, **kwargs)
+
+    class Meta(object):
+        verbose_name_plural = 'categories'
