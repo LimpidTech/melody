@@ -3,23 +3,36 @@ from django.contrib import admin
 from . import models
 
 
-class CategoryInline(admin.StackedInline):
-    model = models.Category.posts.through
-    extra = 1
+class PostInline(admin.StackedInline):
+    model = models.Post.topics.through
+    extra = 3
+
+
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('name', 'last_modified', 'created', 'id')
+    list_display_links = ('name',)
+
+    list_filter = ('created', 'last_modified')
+    search_fields = ('name',)
+
+    inlines = [PostInline]
+
+admin.site.register(models.Topic, TopicAdmin)
+
+
+class TopicInline(admin.StackedInline):
+    model = models.Topic.posts.through
+    extra = 3
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'id')
+    list_display = ('subject', 'last_modified', 'created', 'id')
     list_display_links = ('subject',)
 
-    inlines = [
-        CategoryInline,
-    ]
+    list_filter = ('created', 'last_modified', 'topics')
+    search_fields = ('name',)
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id')
-    list_display_links = ('name',)
+    inlines = [TopicInline]
 
 
 admin.site.register(models.Post, PostAdmin)
-admin.site.register(models.Category, CategoryAdmin)

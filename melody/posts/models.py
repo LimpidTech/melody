@@ -16,20 +16,26 @@ class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
         null=True,
     )
 
-
 @implementer(collection.Collection)
 class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
-    name = models.TextField()
+    name = models.TextField(unique=True)
 
     posts = models.ManyToManyField(
         Post,
-        related_name='categories',
+        related_name='topics',
         blank=True,
         editable=False,
     )
 
-    class Meta(object):
-        verbose_name_plural = 'categories'
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower().strip()
+        return super(Topic, self).save(*args, **kwargs)
+
+    class Meta(models.CreateUpdateModelMixin.Meta):
+        verbose_name_plural = 'topics'
 
 
 @implementer(collection.Collection)
@@ -47,5 +53,6 @@ class Category(Topic):
 
         return super(Category, self).save(*args, **kwargs)
 
-    class Meta(object):
+    class Meta(models.CreateUpdateModelMixin.Meta):
         verbose_name_plural = 'categories'
+        ordering = ('parent',) + models.CreateUpdateModelMixin.Meta.ordering

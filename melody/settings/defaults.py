@@ -9,6 +9,10 @@ def project_path(*paths):
     return os.path.join(os.getcwd(), *paths)
 
 
+DATE_FORMAT = 'Y-m-d'
+USE_L10N = True
+
+
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',

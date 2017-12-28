@@ -12,13 +12,13 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'subject',
             'body',
-            'categories',
+            'topics',
         )
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class TopicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta(object):
-        model = models.Category
+        model = models.Topic
         depth = 2
 
         fields = (

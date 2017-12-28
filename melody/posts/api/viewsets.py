@@ -10,6 +10,6 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PostSerializer
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = models.Category.objects.all()
-    serializer_class = serializers.CategorySerializer
+class TopicViewSet(viewsets.ModelViewSet):
+    queryset = models.Topic.objects.all()
+    serializer_class = serializers.TopicSerializer
