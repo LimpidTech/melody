@@ -1,4 +1,8 @@
+from zope.interface import implements
+
 from melody.core import models
+
+from . import collections
 
 
 class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
@@ -7,6 +11,8 @@ class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
 
 
 class Category(models.CreateUpdateModelMixin, models.UUIDModel):
+    implements(collections.Collection)
+
     class Meta(object):
         verbose_name_plural = 'categories'
 
