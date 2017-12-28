@@ -30,7 +30,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ('subject',)
 
     list_filter = ('created', 'last_modified', 'topics')
-    search_fields = ('name',)
+    search_fields = ('subject', 'body')
 
     inlines = [TopicInline]
 
