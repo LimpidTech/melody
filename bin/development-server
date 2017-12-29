@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-set -e
-
 python3 -m venv ../shared
 source ../shared/bin/activate
 

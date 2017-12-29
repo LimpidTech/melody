@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
 
+    'melody.accounts',
     'melody.core',
     'melody.posts',
     'melody.realtime',

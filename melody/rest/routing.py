@@ -24,7 +24,12 @@ def register_viewsets(module):
         for suffix in API_CLASS_SUFFIXES:
             if attribute_name.endswith(suffix):
                 url_name = attribute_name.lower()[:len(attribute_name)-len(suffix)]
-                routing.router.register(url_name, getattr(module, attribute_name))
+
+                routing.router.register(
+                    url_name,
+                    getattr(module, attribute_name),
+                    base_name=attribute_name,
+                )
 
 
 def register(app_name):
