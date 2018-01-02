@@ -34,8 +34,11 @@ def register_viewsets(module):
 
 def register(app_name):
     module = import_service_module(app_name)
-    if module:
-        register_viewsets(module)
+
+    if not module:
+        return
+
+    register_viewsets(module)
 
 
 class MelodyRouter(routers.DefaultRouter):

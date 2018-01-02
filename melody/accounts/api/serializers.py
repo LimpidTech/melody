@@ -10,8 +10,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'username',
             'email',
-            'is_staff',
-            'is_superuser',
         )
 
 

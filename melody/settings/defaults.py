@@ -2,13 +2,16 @@ import os
 
 
 def env_value(name, default=None):
-    return os.environ.get(f'MELODY_${name.upper()}', default)
+    name = name.upper()
+    return os.environ.get(f'MELODY_${name}', os.environ.get(name, default))
 
 
 def project_path(*paths):
     return os.path.join(os.getcwd(), *paths)
 
 
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+DEFAULT_FROM_EMAIL = ''
 DATE_FORMAT = 'Y-m-d'
 USE_L10N = True
 
@@ -20,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.admin',
 
+    'anymail',
     'channels',
     'rest_framework',
 
@@ -31,6 +35,8 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -64,4 +70,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+}
+
+ANYMAIL = {
+    'MAILGUN_API_KEY': env_value('MAILGUN_API_KEY'),
+    'MAILGUN_SENDER_DOMAIN': 'melody.local',
 }
