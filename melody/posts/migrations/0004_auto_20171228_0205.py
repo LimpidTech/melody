@@ -12,7 +12,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='category',
-            options={'ordering': ('parent', '-last_modified', '-created'), 'verbose_name_plural': 'categories'},
+            options={
+                'ordering': ('parent', '-last_modified', '-created'),
+                'verbose_name_plural': 'categories'
+            },
         ),
         migrations.AlterModelOptions(
             name='post',
@@ -20,6 +23,9 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='topic',
-            options={'ordering': ('-last_modified', '-created'), 'verbose_name_plural': 'topics'},
+            options={
+                'ordering': ('-last_modified', '-created'),
+                'verbose_name_plural': 'topics'
+            },
         ),
     ]

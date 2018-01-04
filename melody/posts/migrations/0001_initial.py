@@ -19,10 +19,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False
+                    )
+                ),
                 ('subject', models.TextField()),
                 ('body', models.TextField()),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    'author',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
             ],
             options={
                 'abstract': False,
@@ -32,7 +47,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Topic',
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False
+                    )
+                ),
                 ('name', models.TextField()),
             ],
             options={
@@ -43,8 +66,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('topic_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='posts.Topic')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='posts.Category')),
+                (
+                    'topic_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='posts.Topic'
+                    )
+                ),
+                (
+                    'parent',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to='posts.Category'
+                    )
+                ),
             ],
             options={
                 'verbose_name_plural': 'categories',
@@ -54,6 +95,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='topic',
             name='posts',
-            field=models.ManyToManyField(blank=True, editable=False, related_name='categories', to='posts.Post'),
+            field=models.ManyToManyField(
+                blank=True,
+                editable=False,
+                related_name='categories',
+                to='posts.Post'
+            ),
         ),
     ]

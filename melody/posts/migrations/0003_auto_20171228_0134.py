@@ -22,6 +22,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topic',
             name='posts',
-            field=models.ManyToManyField(blank=True, editable=False, related_name='topics', to='posts.Post'),
+            field=models.ManyToManyField(
+                blank=True,
+                editable=False,
+                related_name='topics',
+                to='posts.Post'
+            ),
         ),
     ]
