@@ -3,10 +3,10 @@ from zope.interface import implementer
 
 from melody.core import models
 
-from . import collection
+from melody.collector import collection
 
 
-class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
+class Post(models.CreateUpdateModelMixin, models.UUIDModel):
     subject = models.TextField()
     body = models.TextField()
 
@@ -16,7 +16,8 @@ class Post(models.CreateUpdateModelMixin,  models.UUIDModel):
         null=True,
     )
 
-@implementer(collection.Collection)
+
+@implementer(collection.ICollection)
 class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
     name = models.TextField(unique=True)
 
@@ -38,7 +39,6 @@ class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
         verbose_name_plural = 'topics'
 
 
-@implementer(collection.Collection)
 class Category(Topic):
     parent = models.ForeignKey(
         'self',
@@ -55,4 +55,5 @@ class Category(Topic):
 
     class Meta(models.CreateUpdateModelMixin.Meta):
         verbose_name_plural = 'categories'
+
         ordering = ('parent',) + models.CreateUpdateModelMixin.Meta.ordering

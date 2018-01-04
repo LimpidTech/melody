@@ -17,6 +17,7 @@ class TopicAdmin(admin.ModelAdmin):
 
     inlines = [PostInline]
 
+
 admin.site.register(models.Topic, TopicAdmin)
 
 

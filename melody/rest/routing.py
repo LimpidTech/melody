@@ -6,7 +6,6 @@ from django.conf import settings
 
 from melody.rest import routing
 
-
 API_CLASS_SUFFIXES = ['ViewSet']
 
 INSTALLED_APPS = settings.INSTALLED_APPS
@@ -23,7 +22,8 @@ def register_viewsets(module):
     for attribute_name in dir(module):
         for suffix in API_CLASS_SUFFIXES:
             if attribute_name.endswith(suffix):
-                url_name = attribute_name.lower()[:len(attribute_name)-len(suffix)]
+                url_name = attribute_name.lower(
+                )[:len(attribute_name) - len(suffix)]
 
                 routing.router.register(
                     url_name,

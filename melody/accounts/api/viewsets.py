@@ -15,6 +15,7 @@ from . import serializers
 
 ensure_csrf = decorators.method_decorator(csrf.ensure_csrf_cookie)
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = auth_models.User.objects.all()
     serializer_class = serializers.UserSerializer
@@ -49,10 +50,15 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
         input_serializer = self.get_serializer(data=request.data)
 
         if not input_serializer.is_valid():
-            return response.Response({
-                'meta': {'error': True},
-                'result': input_serializer.errors
-            }, status=400)
+            return response.Response(
+                {
+                    'meta': {
+                        'error': True
+                    },
+                    'result': input_serializer.errors
+                },
+                status=400
+            )
 
         user = authentication.authenticate_and_login(
             request,
