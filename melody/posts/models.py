@@ -1,12 +1,13 @@
 from django.contrib.auth import models as auth_models
-from zope.interface import implementer
+from zope import interface
 
 from melody.core import models
-
 from melody.collector import collection
 
+from melody.posts import renderer
 
-class Post(models.CreateUpdateModelMixin, models.UUIDModel):
+
+class Post(models.CreateUpdateModelMixin, models.UUIDModel, renderer.Renderable):
     subject = models.TextField()
     body = models.TextField()
 
@@ -17,7 +18,7 @@ class Post(models.CreateUpdateModelMixin, models.UUIDModel):
     )
 
 
-@implementer(collection.ICollection)
+@interface.implementer(collection.ICollection)
 class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
     name = models.TextField(unique=True)
 

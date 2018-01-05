@@ -10,8 +10,9 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
         fields = (
             'url',
-            'subject',
             'body',
+            'html',
+            'subject',
             'topics',
         )
 

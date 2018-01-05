@@ -11,7 +11,7 @@ def project_path(*paths):
 
 
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 'services@melody.monokro.me'
 DATE_FORMAT = 'Y-m-d'
 USE_L10N = True
 
@@ -21,9 +21,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
+
     'anymail',
     'channels',
     'rest_framework',
+
     'melody.accounts',
     'melody.collector',
     'melody.core',
