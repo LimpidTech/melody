@@ -9,6 +9,7 @@ SECRET_KEY = env_value(
     'secret_key', 'diagonal stunning powder ledge employ dealer'
 )
 
+DEFAULT_FROM_EMAIL = 'services@melody.local'
 FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
 MEDIA_ROOT = project_path('media')
 MEDIA_URL = '/media/'
