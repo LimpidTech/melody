@@ -71,3 +71,9 @@ ANYMAIL = {
     'MAILGUN_API_KEY': env_value('MAILGUN_API_KEY'),
     'MAILGUN_SENDER_DOMAIN': 'melody.local',
 }
+
+COLLECTION_SERIALIZER_TYPES = {
+    'post': ('melody.posts.api.serializers', 'PostSerializer'),
+}
+
+

@@ -1,3 +1,4 @@
+from django import http
 from django.contrib.auth import logout
 from django.contrib.auth import models as auth_models
 from django.utils import decorators
@@ -62,8 +63,8 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
 
         user = authentication.authenticate_and_login(
             request,
-            input_serializer.data['username'],
-            input_serializer.data['password'],
+            input_serializer.validated_data['username'],
+            input_serializer.validated_data['password'],
         )
 
         if user is None:
@@ -73,16 +74,12 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
 
     @ensure_csrf
     def destroy(self, request, pk=None):
-        is_forbidden = request.user.is_authenticated or request.user.is_superuser
+        is_forbidden = request.user.is_authenticated
         has_wrong_pk = pk is not request.user.pk
 
-        response = response.Response({})
-
         if pk is None or (is_forbidden and has_wrong_pk):
-            response.status_code = 403
-        else:
-            response.status_code = 201
+            return http.HttpResponseForbidden()
 
         logout(request)
 
-        return response
+        return response.Response({}, status=201)
