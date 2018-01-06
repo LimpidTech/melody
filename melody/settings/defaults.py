@@ -80,4 +80,8 @@ COLLECTION_SERIALIZER_TYPES = {
     'post': ('melody.posts.api.serializers', 'PostSerializer'),
 }
 
-
+CORS_ALLOWED_HEADERS = [
+    'Accept',
+    'Content-Type',
+    'Authorization',
+]
