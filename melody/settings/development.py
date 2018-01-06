@@ -45,4 +45,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-CORS_ALLOWED_ORIGINS = ['*']
+CORS_ALLOWED_ORIGINS = [
+    '127.0.0.1',
+    '127.0.0.1:*',
+    'localhost',
+    'localhost:*',
+    'melody.local',
+    'melody.local:*',
+]
