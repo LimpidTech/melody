@@ -45,9 +45,9 @@ def match(pattern, origin):
 
 def origin_is_match(patterns, origin):
     for pattern in patterns:
-        if not match(pattern, origin):
-            return False
-    return True
+        if match(pattern, origin):
+            return True
+    return False
 
 class CORSMiddleware(object):
     """ Provides necessary responses and headers for CORS requests. """
@@ -63,15 +63,13 @@ class CORSMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        origin = request.META.get(HTTP_ORIGIN, None)
-        method = request.META.get(HTTP_ACR_METHOD, None)
-
         response = self.get_response(request)
 
-        if not origin or not method:
-            return response
+        origin = request.META.get(HTTP_ORIGIN, None)
+        method = request.META.get(HTTP_ACR_METHOD, None)
+        is_match = method and origin
 
-        if origin_is_match(CORS_ALLOWED_ORIGINS, origin):
+        if is_match and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
             response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN'] 
             response['Access-Control-Allow-Methods'] = ",".join(CORS_ALLOWED_METHODS) 
             response['Access-Control-Allow-Headers'] = ",".join(CORS_ALLOWED_HEADERS) 
