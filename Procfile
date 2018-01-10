@@ -1,1 +1,1 @@
-web: gunicorn melody.wsgi --log-file=-
+web: uwsgi
