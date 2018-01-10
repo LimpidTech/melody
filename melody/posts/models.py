@@ -13,9 +13,28 @@ class Post(models.CreateUpdateModelMixin, models.UUIDModel, renderer.Renderable)
 
     author = models.ForeignKey(
         auth_models.User,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
     )
+
+    in_reply_to = models.ForeignKey(
+        'self',
+        related_name='replies',
+        on_delete=models.PROTECT,
+    )
+
+    class Meta(object):
+        ordering = ('in_reply_to',) + models.CreateUpdateModelMixin.Meta.ordering
+
+class History(models.CreateUpdateModelMixin, models.UUIDModel):
+    post = models.ForeignKey(
+        Post,
+        related_name='history',
+        on_delete=models.PROTECT,
+    )
+
+    class Meta(object):
+        ordering = ('post', models.CreateUpdateModelMixin.Meta.ordering)
 
 
 @interface.implementer(collection.ICollection)
@@ -43,7 +62,7 @@ class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
 class Category(Topic):
     parent = models.ForeignKey(
         'self',
-        on_delete=models.DO_NOTHING,
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
