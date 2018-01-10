@@ -3,7 +3,7 @@ import os
 
 def env_value(name, default=None):
     name = name.upper()
-    return os.environ.get(f'MELODY_${name}', os.environ.get(name, default))
+    return os.environ.get(f'MELODY_{name}', os.environ.get(name, default))
 
 
 def project_path(*paths):
