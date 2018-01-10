@@ -16,11 +16,12 @@ DATE_FORMAT = 'Y-m-d'
 USE_L10N = True
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
-    'django.contrib.admin',
+    'django.contrib.staticfiles',
 
     'anymail',
     'channels',

@@ -18,7 +18,6 @@ STATIC_URL = '/static/'
 
 INSTALLED_APPS += [
     'livereload',  # LiveReload needs to precede staticfiles
-    'django.contrib.staticfiles',
     'debug_toolbar',
     'django_extensions',
 ]
