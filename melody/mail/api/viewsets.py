@@ -13,6 +13,9 @@ class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
-            return response.Response(serializer.errors, status=400)
+            return response.Response({
+                'request_data': request.data,
+                'errors': serializer.errors,
+            }, status=400)
 
         return response.Response(serializer.data)
