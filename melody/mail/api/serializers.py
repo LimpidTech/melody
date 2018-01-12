@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
 class MailSerializer(serializers.Serializer):
-    type = serializers.CharField(source='event')
-    timestamp = serializers.IntegerField()
-
     domain = serializers.CharField()
+
+    event_type = serializers.CharField(source='event')
+    timestamp = serializers.IntegerField()
 
     city = serializers.CharField()
     country = serializers.CharField()
