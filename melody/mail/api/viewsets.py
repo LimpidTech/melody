@@ -11,7 +11,7 @@ class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
     serializer_class = serializers.MailSerializer
 
-    def list(self, request):
+    def create(self, request, action=None):
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
