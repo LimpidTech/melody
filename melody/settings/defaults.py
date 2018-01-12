@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'melody.accounts',
     'melody.collector',
     'melody.core',
+    'melody.mail',
     'melody.posts',
     'melody.realtime',
 ]
