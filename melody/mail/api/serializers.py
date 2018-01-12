@@ -20,7 +20,7 @@ class MailSerializer(serializers.Serializer):
     client_os = serializers.CharField(source='client-os')
     client_type = serializers.CharField(source='client-type')
 
-    user_agent = serializers.CharField(source='user_agent')
+    user_agent = serializers.CharField(source='user-agent')
     ip_address = serializers.CharField(source='ip')
 
     # message_headers = serializers.JSONField(source='message-headers')
