@@ -14,7 +14,7 @@ class MultiResourceRelatedField(serializers.RelatedField):
         serializer_data = COLLECTION_SERIALIZER_TYPES.get(obj._meta.model_name)
 
         if serializer_data is None:
-            raise ValueError('{} must be in COLLECTION_SERIAL_TYPES'.format(
+            raise ValueError('{} must be in COLLECTION_SERIALIZER_TYPES'.format(
                 obj._meta.model_name,
             ))
 
