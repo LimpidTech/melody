@@ -6,12 +6,6 @@ class MailSerializer(serializers.Serializer):
 
     domain = serializers.CharField()
 
-    recipient = serializers.CharField()
-    message_id = serializers.CharField(source='Message-id')
-    attachment_count = serializers.IntegerField(source='attachment-count')
-
-    plain_text = serializers.CharField(source='body-plain')
-
     city = serializers.CharField()
     country = serializers.CharField()
     region = serializers.CharField()
@@ -23,5 +17,12 @@ class MailSerializer(serializers.Serializer):
     user_agent = serializers.CharField(source='user-agent')
     ip_address = serializers.CharField(source='ip')
 
+    body_plain = serializers.CharField(source='body-plain')
+
     # message_headers = serializers.JSONField(source='message-headers')
     # code = serializers.IntegerField()
+
+    # recipient = serializers.CharField()
+    # message_id = serializers.CharField(source='Message-id')
+    # attachment_count = serializers.IntegerField(source='attachment-count')
+
