@@ -19,12 +19,14 @@ class Post(models.CreateUpdateModelMixin, models.UUIDModel, renderer.Renderable)
 
     in_reply_to = models.ForeignKey(
         'self',
-        related_name='replies',
+        blank=True,
+        null=True,
         on_delete=models.PROTECT,
+        related_name='replies',
     )
 
     class Meta(object):
-        ordering = ('in_reply_to',) + models.CreateUpdateModelMixin.Meta.ordering
+        ordering = ('-in_reply_to__created',) + models.CreateUpdateModelMixin.Meta.ordering
 
 class History(models.CreateUpdateModelMixin, models.UUIDModel):
     post = models.ForeignKey(

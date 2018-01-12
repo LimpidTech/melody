@@ -26,7 +26,7 @@ class CollectionViewSet(viewsets.ViewSet):
         Kind = registration.lookup(pk)
 
         if Kind is None:
-            return http.Http404(
+            raise http.Http404(
                 'No collections were found matching the given name.',
             )
 
