@@ -7,7 +7,7 @@ from . import serializers
 
 class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
-    serializer_class = serializers.MailSerializer
+    serializer_class = serializers.MailOpenedSerializer
 
     def create(self, request, action=None):
         serializer = self.serializer_class(data=request.data)
