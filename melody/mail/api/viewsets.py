@@ -1,5 +1,3 @@
-from django import http
-
 from rest_framework import generics
 from rest_framework import response
 from rest_framework import viewsets
@@ -15,6 +13,6 @@ class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
-            raise http.Http404()
+            raise response.Response(request.data, status=400)
 
         return response.Response(serializer.data)
