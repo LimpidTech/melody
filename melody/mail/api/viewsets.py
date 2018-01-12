@@ -12,7 +12,7 @@ class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
     serializer_class = serializers.MailSerializer
 
     def list(self, request):
-        serializer = self.serializer_class(request.data)
+        serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
             raise http.Http404()
