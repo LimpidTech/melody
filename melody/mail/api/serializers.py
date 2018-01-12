@@ -25,7 +25,7 @@ class MailOpenedSerializer(serializers.Serializer):
     client_os = serializers.CharField(source='client-os')
     client_type = serializers.CharField(source='client-type')
     device_type = serializers.CharField(source='device-type')
-    user_agent = serializers.CharField()
+    user_agent = serializers.CharField(source='user-agent')
 
     ip = serializers.CharField()
     recipient = serializers.EmailField()
