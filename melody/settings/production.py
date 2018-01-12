@@ -6,6 +6,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['services.melody.monokro.me']
 FRONTEND_URL = 'melody.monokro.me'
+MELODY_REDIRECT_URL = 'https://melody.monokro.me/'
 ROOT_URLCONF = 'melody.core.urls.production'
 SECRET_KEY = env_value('secret_key')
 STATIC_URL = env_value('static_url')
