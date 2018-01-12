@@ -5,7 +5,7 @@ class MailOpenedSerializer(serializers.Serializer):
     timestamp = serializers.IntegerField()
 
     domain = serializers.CharField()
-    body_plain = serializers.CharField(source='body-plain', null=True)
+    body_plain = serializers.CharField(source='body-plain', allow_null=True)
 
     city = serializers.CharField()
     country = serializers.CharField()
