@@ -87,3 +87,9 @@ CORS_ALLOWED_HEADERS = [
     'Content-Type',
     'Authorization',
 ]
+
+ALLOWED_HOSTS = [
+    'localhost',
+    'melody.ngrok.io',
+]
+

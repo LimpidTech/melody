@@ -16,5 +16,6 @@ restart_server
 
 watch_files=("$0" setup.* bin/*-server melody/**/migrations/*.py melody/settings/compose.py)
 while inotifywait -e close_write $watch_files; do
+  sleep 5
   restart_server
 done

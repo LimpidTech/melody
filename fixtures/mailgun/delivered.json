@@ -1,0 +1,13 @@
+{
+        "Message-Id": "<20130503182626.18666.16540@melody.monokro.me>",
+        "body-plain": "",
+        "domain": "melody.monokro.me",
+        "event": "delivered",
+        "message-headers": "[[\"Received\", \"by luna.mailgun.net with SMTP mgrt 8734663311733; Fri, 03 May 2013 18:26:27 +0000\"], [\"Content-Type\", [\"multipart/alternative\", {\"boundary\": \"eb663d73ae0a4d6c9153cc0aec8b7520\"}]], [\"Mime-Version\", \"1.0\"], [\"Subject\", \"Test deliver webhook\"], [\"From\", \"Bob <bob@melody.monokro.me>\"], [\"To\", \"Alice <alice@example.com>\"], [\"Message-Id\", \"<20130503182626.18666.16540@melody.monokro.me>\"], [\"X-Mailgun-Variables\", \"{\\\"my_var_1\\\": \\\"Mailgun Variable #1\\\", \\\"my-var-2\\\": \\\"awesome\\\"}\"], [\"Date\", \"Fri, 03 May 2013 18:26:27 +0000\"], [\"Sender\", \"bob@melody.monokro.me\"]]",
+        "my-var-2": "awesome",
+        "my_var_1": "Mailgun Variable #1",
+        "recipient": "alice@example.com",
+        "signature": "36c1d3387e45da858286dab2473271e7795315784b5fde3d01c75b031e61f8f7",
+        "timestamp": "1515744533",
+        "token": "1ffd9cad7929e639deb521728f6ac91e3c7a48c38c3ee92c2e"
+}

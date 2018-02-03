@@ -16,4 +16,4 @@ RUN tox -e package
 
 EXPOSE 8000
 
-CMD ["/opt/services/bin/melody.pex", "runserver"]
+CMD ["python3", "-m", "melody": "runserver_plus"]

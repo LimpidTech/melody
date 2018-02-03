@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 class MailOpenedSerializer(serializers.Serializer):
     event = serializers.CharField()
     timestamp = serializers.IntegerField()

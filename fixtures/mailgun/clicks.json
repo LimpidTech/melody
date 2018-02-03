@@ -1,0 +1,22 @@
+{
+        "body-plain": "",
+        "city": "San Francisco",
+        "client-name": "Chrome",
+        "client-os": "Linux",
+        "client-type": "browser",
+        "country": "US",
+        "device-type": "desktop",
+        "domain": "melody.monokro.me",
+        "event": "clicked",
+        "ip": "50.56.129.169",
+        "my-var-2": "awesome",
+        "my_var_1": "Mailgun Variable #1",
+        "recipient": "alice@example.com",
+        "region": "CA",
+        "signature": "9eb9039dae9c72fa90cf1af781f20960fce31f58bed1472bfb0fe63cf8b78fa7",
+        "timestamp": "1515744699",
+        "token": "6306e1464b50a5b02f1b3252de055e47aad5542e3ae97aadbd",
+        "url": "http://mailgun.net",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.43 Safari/537.31"
+}
+
