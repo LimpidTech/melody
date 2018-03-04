@@ -7,7 +7,8 @@ from melody.collector import collection
 from melody.posts import renderer
 
 
-class Post(models.CreateUpdateModelMixin, models.UUIDModel, renderer.Renderable):
+class Post(models.CreateUpdateModelMixin, models.UUIDModel,
+           renderer.Renderable):
     subject = models.TextField()
     body = models.TextField()
 
@@ -26,7 +27,10 @@ class Post(models.CreateUpdateModelMixin, models.UUIDModel, renderer.Renderable)
     )
 
     class Meta(object):
-        ordering = ('-in_reply_to__created',) + models.CreateUpdateModelMixin.Meta.ordering
+        ordering = (
+            '-in_reply_to__created',
+        ) + models.CreateUpdateModelMixin.Meta.ordering
+
 
 class History(models.CreateUpdateModelMixin, models.UUIDModel):
     post = models.ForeignKey(
