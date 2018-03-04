@@ -40,6 +40,8 @@ def get_signature_verification_info(
     if signature is None:
         raise ValueError('A timestamp must be provided')
 
+    # TODO: Ensure timestamp isn't unreasonably backdated or in the future
+
     return SignatureVerificationInfo(
         signature=signature,
         token=token,
