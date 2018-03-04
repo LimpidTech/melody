@@ -1,7 +1,11 @@
 import uuid
 
-from django.db.models import *
-from django.utils import translation
+from django.db.models import DateTimeField
+from django.db.models import Model
+from django.db.models import UUIDField
+
+# Using `import *` here to inherit the entire Django Model interface
+from django.db.models import *  # noqa
 
 
 class Model(Model):
