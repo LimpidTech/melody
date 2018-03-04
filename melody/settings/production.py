@@ -5,7 +5,7 @@ from melody.settings.defaults import env_value
 # We specifically allow `import *` in this case to pull in expected settings
 from melody.settings.defaults import *  # noqa
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['services.melody.monokro.me']
 FRONTEND_URL = 'melody.monokro.me'
