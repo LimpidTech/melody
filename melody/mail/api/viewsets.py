@@ -44,6 +44,8 @@ class BaseMailViewSet(viewsets.ViewSet, generics.GenericAPIView):
 
         token = data.get('token')
 
+        # TODO: Cache tokens in cache as well to prevent DDoS attacks
+
         try:
             models.MailEventLogModel.objects.get(token=token)
         except models.MailEventLogModel.DoesNotExist:
