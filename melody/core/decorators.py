@@ -4,6 +4,8 @@ import hashlib
 import hmac
 import operator
 
+from django import http
+
 from django.conf import settings
 
 MAILGUN_API_KEY = str.encode(settings.MAILGUN_API_KEY)
@@ -95,7 +97,12 @@ def signature_required(
             )
 
             if not is_valid:
-                raise ValueError('Invalid signature is invalid.')
+                return http.HttpResponseForbidden(
+                    (
+                        'The provided signature was not signed with '
+                        'the expected key. Ignoring this request.'
+                    ),
+                )
 
             return wrapped_fn(self, request, *args, **kwargs)
 
