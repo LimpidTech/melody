@@ -89,12 +89,15 @@ def signature_required(
     def signature_required_decorator(wrapped_fn):
         @functools.wraps(wrapped_fn)
         def raise_unsigned(self, request, *args, **kwargs):
-            is_valid = signature_is_valid(
-                request,
-                get_signature,
-                get_timestamp,
-                get_token,
-            )
+            try:
+                is_valid = signature_is_valid(
+                    request,
+                    get_signature,
+                    get_timestamp,
+                    get_token,
+                )
+            except ValueError:
+                is_valid = False
 
             if not is_valid:
                 return http.HttpResponseForbidden(
