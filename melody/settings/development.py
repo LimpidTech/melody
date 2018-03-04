@@ -1,10 +1,15 @@
-import os
+from melody.settings.defaults import project_path
+from melody.settings.defaults import env_value
+from melody.settings.defaults import INSTALLED_APPS
+from melody.settings.defaults import MIDDLEWARE
 
-from melody.settings.defaults import *
+# We specifically allow `import *` in this case to pull in expected settings
+from melody.settings.defaults import *  # noqa
 
 DEBUG = True
 
 ROOT_URLCONF = 'melody.core.urls.development'
+
 SECRET_KEY = env_value(
     'secret_key', 'diagonal stunning powder ledge employ dealer'
 )

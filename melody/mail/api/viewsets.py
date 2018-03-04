@@ -1,21 +1,122 @@
+from django.utils import timezone
+
 from rest_framework import generics
 from rest_framework import response
 from rest_framework import viewsets
 
+from melody.core import decorators
+
 from . import serializers
 
+# TODO: Add support for attachments
 
-class MailViewSet(viewsets.ViewSet, generics.GenericAPIView):
+
+class BaseMailViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
-    serializer_class = serializers.MailOpenedSerializer
 
+    def update_serializer_data(self, request, data):
+        pass
+
+    def get_initial_serializer_data(self, request):
+        event_time = timezone.datetime.fromtimestamp(
+            int(request.data['timestamp']),
+        )
+
+        return {
+            'event': request.data['event'],
+            'timestamp': event_time,
+            'recipient': request.data['recipient'],
+        }
+
+    @decorators.signature_required()
     def create(self, request, action=None):
-        serializer = self.serializer_class(data=request.data)
+        data = self.get_initial_serializer_data(request)
+        self.update_serializer_data(request, data)
+        serializer = self.serializer_class(data=data)
 
         if not serializer.is_valid():
-            return response.Response({
-                'request_data': request.data,
-                'errors': serializer.errors,
-            }, status=400)
+            print(serializer.errors)
+
+            return response.Response(
+                status=400,
+                data={
+                    'request_data': request.data,
+                    'errors': serializer.errors,
+                },
+            )
 
         return response.Response(serializer.data)
+
+
+class MailDeliveredViewSet(BaseMailViewSet):
+    serializer_class = serializers.MailDeliveredSerializer
+
+    def update_serializer_data(self, request, data):
+        data.update(
+            {
+                'body': request.data['body-plain'],
+                'domain': request.data['domain'],
+                'message_id': request.data['Message-Id'],
+                'message_headers': request.data['message-headers'],
+            }
+        )
+
+
+class MailDroppedViewSet(MailDeliveredViewSet):
+    serializer_class = serializers.MailDroppedSerializer
+
+    def update_serializer_data(self, request, data):
+        super().update_serializer_data(request, data)
+
+        data.update(
+            {
+                'code': request.data['code'],
+                'description': request.data['description'],
+                'reason': request.data['reason'],
+            }
+        )
+
+
+class MailHardBouncedViewSet(MailDeliveredViewSet):
+    serializer_class = serializers.MailHardBouncedSerializer
+
+    def update_serializer_data(self, request, data):
+        super().update_serializer_data(request, data)
+
+        data.update({
+            'error': request.data['error'],
+        })
+
+
+class MailSpamComplaintViewSet(MailDeliveredViewSet):
+    serializer_class = serializers.MailSpamComplaintSerializer
+
+    def update_serializer_data(self, request, data):
+        super().update_serializer_data(request, data)
+
+
+class LocationBasedEventMixin(object):
+    def update_serializer_data(self, request, data):
+        super().update_serializer_data(request, data)
+
+        data.update(
+            {
+                'city': request.data['city'],
+                'country': request.data['country'],
+                'region': request.data['region'],
+                'client_name': request.data['client-name'],
+                'client_os': request.data['client-os'],
+                'client_type': request.data['client-type'],
+                'device_type': request.data['device-type'],
+                'user_agent': request.data['user-agent'],
+                'ip': request.data['ip'],
+            }
+        )
+
+
+class MailUnsubscribeViewSet(LocationBasedEventMixin, BaseMailViewSet):
+    serializer_class = serializers.GenericMailEventSerializer
+
+
+class MailClickedViewSet(LocationBasedEventMixin, BaseMailViewSet):
+    serializer_class = serializers.GenericMailEventSerializer

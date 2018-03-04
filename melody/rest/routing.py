@@ -1,5 +1,6 @@
-import random
 import importlib
+import random
+import string
 
 from django.conf import settings
 from rest_framework import routers
@@ -9,6 +10,22 @@ from melody.rest import routing
 API_CLASS_SUFFIXES = ['ViewSet']
 
 INSTALLED_APPS = settings.INSTALLED_APPS
+
+
+def camel_case_to_snake_case(name):
+    if len(name) < 2:
+        return name.lower()
+
+    result = name[0].lower()
+    upper_characters = set(string.ascii_uppercase)
+
+    for character in name[1:]:
+        if character in upper_characters:
+            result += '_'
+
+        result += character.lower()
+
+    return result
 
 
 def import_service_module(app):
@@ -22,19 +39,17 @@ def register_viewsets(module):
     for attribute_name in dir(module):
         for suffix in API_CLASS_SUFFIXES:
             if attribute_name.endswith(suffix):
-                url_name = attribute_name.lower()[:len(attribute_name) - len(suffix)]
+                url_name = attribute_name[:len(attribute_name) - len(suffix)]
+                snake_case_url_name = camel_case_to_snake_case(url_name)
 
-                view = getattr(module, attribute_name)
+                if snake_case_url_name.startswith('base_'):
+                    continue
 
-                try:
-                    routing.router.register(
-                        url_name,
-                        view,
-                        base_name=url_name,
-                    )
-
-                except:
-                    __import__('pdb').set_trace()
+                routing.router.register(
+                    snake_case_url_name,
+                    getattr(module, attribute_name),
+                    base_name=url_name,
+                )
 
 
 def register(app_name):

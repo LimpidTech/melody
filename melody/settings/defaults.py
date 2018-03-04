@@ -10,9 +10,10 @@ def project_path(*paths):
     return os.path.join(os.getcwd(), *paths)
 
 
-EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-DEFAULT_FROM_EMAIL = 'services@melody.monokro.me'
 DATE_FORMAT = 'Y-m-d'
+DEFAULT_FROM_EMAIL = 'services@melody.monokro.me'
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+MAILGUN_API_KEY = env_value('mailgun_api_key')
 USE_L10N = True
 
 INSTALLED_APPS = [
@@ -22,11 +23,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-
     'anymail',
     'channels',
     'rest_framework',
-
     'melody.accounts',
     'melody.collector',
     'melody.core',
@@ -40,7 +39,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
     'melody.core.middleware.CORSMiddleware',
 ]
 
@@ -74,7 +72,7 @@ REST_FRAMEWORK = {
 }
 
 ANYMAIL = {
-    'MAILGUN_API_KEY': env_value('MAILGUN_API_KEY'),
+    'MAILGUN_API_KEY': MAILGUN_API_KEY,
     'MAILGUN_SENDER_DOMAIN': 'melody.local',
 }
 
@@ -92,4 +90,3 @@ ALLOWED_HOSTS = [
     'localhost',
     'melody.ngrok.io',
 ]
-
