@@ -1,3 +1,6 @@
+import json
+
+from django import http
 from django.utils import timezone
 
 from rest_framework import generics
@@ -5,6 +8,8 @@ from rest_framework import response
 from rest_framework import viewsets
 
 from melody.core import decorators
+
+from melody.mail import models
 
 from . import serializers
 
@@ -28,15 +33,41 @@ class BaseMailViewSet(viewsets.ViewSet, generics.GenericAPIView):
             'recipient': request.data['recipient'],
         }
 
+    def store_mail_data(self, data):
+        """ Attempts to insert the given data into the database.
+
+        Inserts the given data into the mail log database. If the token is
+        already present in the database, we raise a forbidden response
+        because the request is a replay attack in this case.
+
+        """
+
+        token = data.get('token')
+
+        try:
+            models.MailEventLogModel.objects.get(token=token)
+        except models.MailEventLogModel.DoesNotExist:
+            models.MailEventLogModel.objects.create(
+                token=token,
+                raw_data=json.dumps(data),
+            )
+        else:
+            return http.response.HttpResponseForbidden(
+                'Token already exists. This is a replay attack.'
+            )
+
     @decorators.signature_required()
     def create(self, request, action=None):
+        storage_response = self.store_mail_data(request.data)
+
+        if storage_response is not None:
+            return storage_response
+
         data = self.get_initial_serializer_data(request)
         self.update_serializer_data(request, data)
         serializer = self.serializer_class(data=data)
 
         if not serializer.is_valid():
-            print(serializer.errors)
-
             return response.Response(
                 status=400,
                 data={
