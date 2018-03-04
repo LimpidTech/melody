@@ -1,3 +1,3 @@
 import setuptools
 
-setuptools.setup(name='melody')
+setuptools.setup()
