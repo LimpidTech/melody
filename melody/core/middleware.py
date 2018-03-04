@@ -1,25 +1,22 @@
-import re
-
 from django.conf import settings
-
 
 CORS_ALLOWED_ORIGINS = getattr(settings, 'CORS_ALLOWED_ORIGINS', [])
 
-CORS_ALLOWED_HEADERS = getattr(settings, 'CORS_ALLOWED_HEADERS', [
-    'Content-Type',
-    'Accept',
-])
+CORS_ALLOWED_HEADERS = getattr(
+    settings, 'CORS_ALLOWED_HEADERS', [
+        'Content-Type',
+        'Accept',
+    ]
+)
 
-CORS_ALLOWED_METHODS = getattr(settings, 'CORS_ALLOWED_METHODS', [
-    'POST',
-    'GET',
-    'OPTIONS',
-    'PUT',
-    'DELETE'
-])
+CORS_ALLOWED_METHODS = getattr(
+    settings, 'CORS_ALLOWED_METHODS',
+    ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
+)
 
 HTTP_ORIGIN = 'HTTP_ORIGIN'
 HTTP_ACR_METHOD = 'HTTP_ACCESS_CONTROL_REQUEST_METHOD'
+
 
 def match(pattern, origin):
     origin_length = len(origin)
@@ -32,8 +29,8 @@ def match(pattern, origin):
         if character == '*':
             pattern_offset = (origin_length - origin_index) * -1
             for index in range(origin_index, 0, -1):
-              if match(pattern[:pattern_offset], origin[:index]):
-                return True
+                if match(pattern[:pattern_offset], origin[:index]):
+                    return True
             return False
 
         if origin[origin_index] != character:
@@ -43,11 +40,13 @@ def match(pattern, origin):
 
     return True
 
+
 def origin_is_match(patterns, origin):
     for pattern in patterns:
         if match(pattern, origin):
             return True
     return False
+
 
 class CORSMiddleware(object):
     """ Provides necessary responses and headers for CORS requests. """
@@ -70,8 +69,11 @@ class CORSMiddleware(object):
         is_match = method and origin
 
         if is_match and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
-            response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN'] 
-            response['Access-Control-Allow-Methods'] = ",".join(CORS_ALLOWED_METHODS) 
-            response['Access-Control-Allow-Headers'] = ",".join(CORS_ALLOWED_HEADERS) 
+            response['Access-Control-Allow-Origin'
+                     ] = request.META['HTTP_ORIGIN']
+            response['Access-Control-Allow-Methods'
+                     ] = ",".join(CORS_ALLOWED_METHODS)
+            response['Access-Control-Allow-Headers'
+                     ] = ",".join(CORS_ALLOWED_HEADERS)
 
         return response
