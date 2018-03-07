@@ -66,14 +66,15 @@ class CORSMiddleware(object):
 
         origin = request.META.get(HTTP_ORIGIN, None)
         method = request.META.get(HTTP_ACR_METHOD, None)
-        is_match = method and origin
+
+        # TODO: Investigate method being None and put this back
+        # is_match = method and origin
+        is_match = True
 
         if is_match and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
-            response['Access-Control-Allow-Origin'
-                     ] = request.META['HTTP_ORIGIN']
-            response['Access-Control-Allow-Methods'
-                     ] = ",".join(CORS_ALLOWED_METHODS)
-            response['Access-Control-Allow-Headers'
-                     ] = ",".join(CORS_ALLOWED_HEADERS)
+            response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN']
+            response['Access-Control-Allow-Methods'] = ",".join(CORS_ALLOWED_METHODS)
+            response['Access-Control-Allow-Headers'] = ",".join(CORS_ALLOWED_HEADERS)
+            response['Access-Control-Allow-Credentials'] = 'true'
 
         return response
