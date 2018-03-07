@@ -90,8 +90,8 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
         # TODO: Forwarding of error data
         if user is None:
             return response.Response({
-                'error': True,
-            }, status=400)
+                'username': None,
+            }, status=401)
 
         if redirect_url is not None:
             return http.HttpResponseRedirect(redirect_url)
