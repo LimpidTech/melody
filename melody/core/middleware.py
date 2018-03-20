@@ -1,4 +1,7 @@
+import functools
+
 from django.conf import settings
+from django import urls
 
 CORS_ALLOWED_ORIGINS = getattr(settings, 'CORS_ALLOWED_ORIGINS', [])
 
@@ -66,10 +69,7 @@ class CORSMiddleware(object):
 
         origin = request.META.get(HTTP_ORIGIN, None)
         method = request.META.get(HTTP_ACR_METHOD, None)
-
-        # TODO: Investigate method being None and put this back
-        # is_match = method and origin
-        is_match = True
+        is_match = method and origin
 
         if is_match and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
             response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN']

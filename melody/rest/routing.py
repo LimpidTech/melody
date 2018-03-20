@@ -48,7 +48,7 @@ def register_viewsets(module):
                 routing.router.register(
                     snake_case_url_name,
                     getattr(module, attribute_name),
-                    base_name=url_name,
+                    base_name=url_name.lower(),
                 )
 
 
