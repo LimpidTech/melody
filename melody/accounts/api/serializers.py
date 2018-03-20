@@ -8,6 +8,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = auth_models.User
 
         fields = (
+            'url',
             'username',
             'email',
         )
