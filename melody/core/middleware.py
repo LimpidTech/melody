@@ -78,3 +78,32 @@ class CORSMiddleware(object):
             response['Access-Control-Allow-Credentials'] = 'true'
 
         return response
+
+
+def _init_extended_headers(fn):
+    @functools.wraps(fn)
+    def call_fn(request):
+        response = fn(request)
+        response.setdefault('X-Mdy-Identifier', '')
+        response.setdefault('X-Mdy-IsAuthenticated', '')
+        response.setdefault('X-Mdy-Username', '')
+        return response
+    return call_fn
+
+
+class HeaderExtensionMiddleware(object):
+    def __init__(self, get_response):
+        self.get_response = _init_extended_headers(get_response)
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        if request.user.is_authenticated:
+            response['X-Mdy-Identifier'] = urls.reverse('user-detail', kwargs={
+                'pk': request.user.username,
+            })
+
+        response['X-Mdy-IsAuthenticated'] = request.user.is_authenticated
+        response['X-Mdy-Username'] = request.user.username
+
+        return response

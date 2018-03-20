@@ -35,11 +35,12 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'melody.core.middleware.CORSMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'melody.core.middleware.CORSMiddleware',
+    'melody.core.middleware.HeaderExtensionMiddleware',
 ]
 
 TEMPLATES = [
