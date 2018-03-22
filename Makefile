@@ -1,4 +1,4 @@
-bin/melody.pex: bin/tox
+bin/metanic.pex: bin/tox
 	tox -e package
 
 bin/tox:

@@ -16,4 +16,4 @@ RUN tox -e package
 
 EXPOSE 8000
 
-CMD ["python3", "-m", "melody": "runserver_plus"]
+CMD ["python3", "-m", "metanic": "runserver_plus"]

@@ -1,5 +1,5 @@
 include *.cfg
 include *.ini *.md
-include melody/**/*.py
-include melody/*.py 
+include metanic/**/*.py
+include metanic/*.py 
 include setup.py
