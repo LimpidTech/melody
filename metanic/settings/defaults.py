@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'anymail',
     'channels',
+    'raven.contrib.django.raven_compat',
     'rest_framework',
     'metanic.accounts',
     'metanic.collector',

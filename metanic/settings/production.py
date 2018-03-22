@@ -1,4 +1,6 @@
 import dj_database_url
+import os
+import raven
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
@@ -15,10 +17,17 @@ ROOT_URLCONF = 'metanic.core.urls.production'
 SECRET_KEY = env_value('secret_key')
 STATIC_URL = env_value('static_url')
 
+CACHES = {
+    'default': cache_url(env_value('redis_url')),
+}
+
+
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500),
 }
 
-CACHES = {
-    'default': cache_url(env_value('redis_url')),
+
+RAVEN_CONFIG = {
+    'dsn': env_value('sentry_dsn'),
+    'release': raven.getch_git_sha(os.path.abspath(os.pardir)),
 }
