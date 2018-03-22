@@ -1,7 +1,9 @@
-from metanic.settings.defaults import project_path
-from metanic.settings.defaults import env_value
 from metanic.settings.defaults import INSTALLED_APPS
 from metanic.settings.defaults import MIDDLEWARE
+
+from metanic.settings.defaults import cache_url
+from metanic.settings.defaults import env_value
+from metanic.settings.defaults import project_path
 
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
@@ -11,7 +13,8 @@ DEBUG = True
 ROOT_URLCONF = 'metanic.core.urls.development'
 
 SECRET_KEY = env_value(
-    'secret_key', 'diagonal stunning powder ledge employ dealer'
+    'secret_key',
+    'diagonal stunning powder ledge employ dealer',
 )
 
 DEFAULT_FROM_EMAIL = 'services@metanic.local'
@@ -35,6 +38,10 @@ STATICFILES_FINDERS = [
 MIDDLEWARE += [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+CACHES = {
+    'default': cache_url('redis://localhost/0'),
+}
 
 DATABASES = {
     'default':

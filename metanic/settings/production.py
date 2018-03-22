@@ -1,5 +1,6 @@
 import dj_database_url
 
+from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
 
 # We specifically allow `import *` in this case to pull in expected settings
@@ -16,4 +17,8 @@ STATIC_URL = env_value('static_url')
 
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500),
+}
+
+CACHES = {
+    'default': cache_url(env_value('redis_url')),
 }

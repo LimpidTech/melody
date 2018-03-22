@@ -1,4 +1,5 @@
 import os
+import urllib
 
 
 def env_value(name, default=None):
@@ -8,6 +9,18 @@ def env_value(name, default=None):
 
 def project_path(*paths):
     return os.path.join(os.getcwd(), *paths)
+
+
+def cache_url(url):
+    parsed_url = urllib.parse.urlparse(url)
+    return {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': f'{parsed_url.hostname}:{parsed_url.port}',
+        'OPTIONS': {
+            'DB': 0,
+            'PASSWORD': parsed_url.password,
+        },
+    }
 
 
 DATE_FORMAT = 'Y-m-d'
