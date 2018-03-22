@@ -1,6 +1,4 @@
 import dj_database_url
-import os
-import raven
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
@@ -29,5 +27,4 @@ DATABASES = {
 
 RAVEN_CONFIG = {
     'dsn': env_value('sentry_dsn'),
-    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
 }
