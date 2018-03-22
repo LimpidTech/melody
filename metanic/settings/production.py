@@ -29,5 +29,5 @@ DATABASES = {
 
 RAVEN_CONFIG = {
     'dsn': env_value('sentry_dsn'),
-    'release': raven.getch_git_sha(os.path.abspath(os.pardir)),
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
 }
