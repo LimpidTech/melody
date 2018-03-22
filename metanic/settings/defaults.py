@@ -61,29 +61,35 @@ TEMPLATES = [
     {
         'APP_DIRS': True,
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'OPTIONS':
-            {
-                'context_processors':
-                    [
-                        'django.contrib.auth.context_processors.auth',
-                        'django.contrib.messages.context_processors.messages',
-                        'metanic.core.context_processors.frontend_url',
-                    ],
-            }
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'metanic.core.context_processors.frontend_url',
+            ],
+        }
     },
 ]
 
 CHANNEL_LAYERS = {
-    'default':
-        {
-            'BACKEND': 'asgiref.inmemory.ChannelLayer',
-            'ROUTING': 'metanic.realtime.routing.routes',
-        }
+    'default': {
+        'BACKEND': 'asgiref.inmemory.ChannelLayer',
+        'ROUTING': 'metanic.realtime.routing.routes',
+    }
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':
-        ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': env_value('anon_rate_limit', default='3/minute'),
+        'user': env_value('anon_rate_limit', default='100/hour'),
+    },
 }
 
 ANYMAIL = {
