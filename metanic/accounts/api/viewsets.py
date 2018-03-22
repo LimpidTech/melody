@@ -8,11 +8,11 @@ from django.views.decorators import csrf
 from rest_framework import authentication as rest_authentication
 from rest_framework import generics
 from rest_framework import response
-from rest_framework import throttling
 from rest_framework import viewsets
 from rest_framework_jwt import authentication as jwt_authentication
 
 from metanic.accounts import authentication
+from metanic.rest import throttling
 
 from . import serializers
 
@@ -51,22 +51,21 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
     serializer_class = serializers.AuthenticationSerializer
 
-    throttle_classes = (
-        throttling.AnonRateThrottle,
-        throttling.UserRateThrottle,
-    )
-
     authentication_classes = (
         authentication.CSRFExemptAuthentication,
         jwt_authentication.JSONWebTokenAuthentication,
         rest_authentication.TokenAuthentication,
     )
 
+    throttle_classes = (
+        throttling.SensitiveDataRateThrottle,
+    )
+
     @ensure_csrf
     def create(self, request):
         logout(request)
-        input_serializer = self.get_serializer(data=request.data)
 
+        input_serializer = self.get_serializer(data=request.data)
         redirect_url = get_redirect_url(request.data.get('redirect_uri'))
 
         if not input_serializer.is_valid():

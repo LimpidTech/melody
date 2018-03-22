@@ -87,8 +87,9 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': env_value('anon_rate_limit', default='3/minute'),
-        'user': env_value('anon_rate_limit', default='100/hour'),
+        'anon': env_value('anon_throttle_rate', default='3/minute'),
+        'sensitive': env_value('sensitive_throttle_rate', default='5/minute'),
+        'user': env_value('user_throttle_rate', default='100/hour'),
     },
 }
 
