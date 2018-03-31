@@ -40,7 +40,7 @@ MIDDLEWARE += [
 ]
 
 CACHES = {
-    'default': cache_url('redis://localhost/0'),
+    'default': cache_url('redis://localhost:6379/0'),
 }
 
 DATABASES = {
