@@ -10,6 +10,15 @@ __pycache__/*
 # Development SQLite database
 *.sqlite3
 
+# Virtualenv Files
+/bin/*
+/include/*
+/lib*
+/share/*
+
+# Pyenv messiness?
+pyvenv.cfg
+
 # Non-git hidden files
 .*
 !.git*
