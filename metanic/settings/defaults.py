@@ -4,7 +4,7 @@ import urllib
 
 def env_value(name, default=None):
     name = name.upper()
-    return os.environ.get(f'METANIC_{name}', os.environ.get(name, default))
+    return os.environ.get('METANIC_' + name, os.environ.get(name, default))
 
 
 def project_path(*paths):
@@ -13,9 +13,11 @@ def project_path(*paths):
 
 def cache_url(url):
     parsed_url = urllib.parse.urlparse(url)
+    location = parsed_url.hostname + ':' + str(parsed_url.port)
+
     return {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': f'{parsed_url.hostname}:{parsed_url.port}',
+        'LOCATION': location,
         'OPTIONS': {
             'DB': 0,
             'PASSWORD': parsed_url.password,

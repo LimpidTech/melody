@@ -59,7 +59,7 @@ def signature_is_valid(request, *verification_getters):
         *verification_getters,
     )
 
-    signed_value = f'{verification_info.timestamp}{verification_info.token}'
+    signed_value = verification_info.timestamp + verification_info.token
 
     signature = hmac.new(
         key=MAILGUN_API_KEY,
