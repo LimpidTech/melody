@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import models as auth_models
 from django.utils import decorators
 from django.views.decorators import csrf
+from django import urls
 
 from rest_framework import authentication as rest_authentication
 from rest_framework import generics
@@ -46,6 +47,16 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return queryset.filter(pk=self.request.user.pk)
 
+    def retrieve(self, request, pk):
+        if pk == 'current':
+            return http.HttpResponseRedirect(
+                redirect_to=urls.reverse('user-detail', kwargs={
+                    'pk': self.request.user.pk,
+                })
+            )
+
+        return super(UserViewSet, self).retrieve(pk)
+
 
 class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
@@ -87,11 +98,7 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
 
         # TODO: Forwarding of error data
         if user is None:
-            return response.Response(
-                {
-                    'username': None,
-                }, status=401
-            )
+            return response.Response({'username': None}, status=401)
 
         if redirect_url is not None:
             return http.HttpResponseRedirect(redirect_url)
