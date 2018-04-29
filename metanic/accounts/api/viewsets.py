@@ -48,9 +48,10 @@ class UserViewSet(viewsets.ModelViewSet):
         return queryset.filter(pk=self.request.user.pk)
 
     def retrieve(self, request, pk):
-        if pk == 'current':
+        if request.user.is_authenticated and pk == 'current':
             return http.HttpResponseRedirect(
-                redirect_to=urls.reverse('user-detail', kwargs={
+                redirect_to=urls.
+                reverse('user-detail', kwargs={
                     'pk': self.request.user.pk,
                 })
             )
@@ -68,9 +69,7 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
         rest_authentication.TokenAuthentication,
     )
 
-    throttle_classes = (
-        throttling.SensitiveDataRateThrottle,
-    )
+    throttle_classes = (throttling.SensitiveDataRateThrottle,)
 
     @ensure_csrf
     def create(self, request):
