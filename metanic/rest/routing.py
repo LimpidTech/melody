@@ -41,6 +41,7 @@ def register_viewsets(module):
             if attribute_name.endswith(suffix):
                 url_name = attribute_name[:len(attribute_name) - len(suffix)]
                 snake_case_url_name = camel_case_to_snake_case(url_name)
+                base_name = snake_case_url_name.replace('_', '-').lower()
 
                 if snake_case_url_name.startswith('base_'):
                     continue
@@ -48,7 +49,7 @@ def register_viewsets(module):
                 routing.router.register(
                     snake_case_url_name,
                     getattr(module, attribute_name),
-                    base_name=url_name.lower(),
+                    base_name=base_name,
                 )
 
 
