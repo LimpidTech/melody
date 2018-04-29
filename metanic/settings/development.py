@@ -1,5 +1,6 @@
 from metanic.settings.defaults import INSTALLED_APPS
 from metanic.settings.defaults import MIDDLEWARE
+from metanic.settings.defaults import REST_FRAMEWORK
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
@@ -67,3 +68,5 @@ CORS_ALLOWED_ORIGINS = [
     'metanic.local',
     'metanic.local:*',
 ]
+
+REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
