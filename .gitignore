@@ -10,6 +10,9 @@ __pycache__/*
 # Development SQLite database
 *.sqlite3
 
+# Pip output
+/pip-*.json
+
 # Virtualenv Files
 /bin/*
 /include/*
