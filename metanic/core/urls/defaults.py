@@ -7,5 +7,4 @@ registration.autodiscover()
 
 urlpatterns = [
     urls.path('admin/', admin.site.urls),
-    urls.path('services/', urls.include('metanic.rest.urls'))
 ]

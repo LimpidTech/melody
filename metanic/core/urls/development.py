@@ -16,6 +16,9 @@ if settings.DEBUG is True:
     urlpatterns += static.static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT
     )
+
     urlpatterns += static.static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+
+    urlpatterns += [urls.path('services/', urls.include('metanic.rest.urls'))]
