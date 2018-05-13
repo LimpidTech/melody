@@ -18,7 +18,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                 "The verification password must be the same as the password."
             )
 
-        return super(AuthenticationSerializer, self).is_valid()
+        return super(UserSerializer, self).validate(data)
 
     class Meta(object):
         model = auth_models.User
