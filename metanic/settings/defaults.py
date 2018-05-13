@@ -122,7 +122,7 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'metanic.org',
+    'https://metanic.org',
 ]
 
 INTERNAL_IPS = []
