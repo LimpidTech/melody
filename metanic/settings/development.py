@@ -26,6 +26,9 @@ METANIC_REDIRECT_URL = 'http://localhost:3030/'
 STATIC_ROOT = project_path('static')
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {}
+REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
+
 INSTALLED_APPS += [
     'livereload',  # LiveReload needs to precede staticfiles
     'debug_toolbar',
@@ -68,5 +71,3 @@ CORS_ALLOWED_ORIGINS = [
     'metanic.local',
     'metanic.local:*',
 ]
-
-REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
