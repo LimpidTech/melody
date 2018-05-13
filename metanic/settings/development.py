@@ -68,6 +68,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+ALLOWED_HOSTS = [
+    'localhost',
+    'metanic.local',
+]
+
 CORS_ALLOWED_ORIGINS = [
     '::1:',
     '127.0.0.1',

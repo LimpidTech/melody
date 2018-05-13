@@ -112,6 +112,5 @@ CORS_ALLOWED_HEADERS = [
 ]
 
 ALLOWED_HOSTS = [
-    'localhost',
-    'metanic.ngrok.io',
+    'metanic.org',
 ]
