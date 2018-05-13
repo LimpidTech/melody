@@ -82,6 +82,12 @@ CHANNEL_LAYERS = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # TODO: Don't use sessions unless development
+        'metanic.rest.authentication.SessionAuthentication',
+        'metanic.rest.authentication.BasicAuthentication',
+    ),
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],

@@ -6,6 +6,7 @@ from django.contrib.auth import models as auth_models
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     email = serializers.EmailField()
 
+    # TODO: When we write unit tests, ensure that these are write_only in specific tests.
     password = serializers.CharField(write_only=True)
     password_verification = serializers.CharField(write_only=True)
 
@@ -26,6 +27,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'username',
             'email',
+            'password',
+            'password_verification',
         )
 
 
