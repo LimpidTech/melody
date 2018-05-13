@@ -69,9 +69,8 @@ class CORSMiddleware(object):
 
         origin = request.META.get(HTTP_ORIGIN, None)
         method = request.META.get(HTTP_ACR_METHOD, None)
-        is_match = method and origin
 
-        if is_match and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
+        if origin and method and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
             response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN']
             response['Access-Control-Allow-Methods'] = ",".join(CORS_ALLOWED_METHODS)
             response['Access-Control-Allow-Headers'] = ",".join(CORS_ALLOWED_HEADERS)
@@ -84,9 +83,9 @@ def _init_extended_headers(fn):
     @functools.wraps(fn)
     def call_fn(request):
         response = fn(request)
-        response.setdefault('X-Mdy-Identifier', '')
-        response.setdefault('X-Mdy-IsAuthenticated', '')
-        response.setdefault('X-Mdy-Username', '')
+        response.setdefault('X-Metanic-Identifier', '')
+        response.setdefault('X-Metanic-IsAuthenticated', '')
+        response.setdefault('X-Metanic-Username', '')
         return response
     return call_fn
 
@@ -99,11 +98,11 @@ class HeaderExtensionMiddleware(object):
         response = self.get_response(request)
 
         if request.user.is_authenticated:
-            response['X-Mdy-Identifier'] = urls.reverse('user-detail', kwargs={
+            response['X-Metanic-Identifier'] = urls.reverse('user-detail', kwargs={
                 'pk': request.user.username,
             })
 
-        response['X-Mdy-IsAuthenticated'] = request.user.is_authenticated
-        response['X-Mdy-Username'] = request.user.username
+        response['X-Metanic-IsAuthenticated'] = request.user.is_authenticated
+        response['X-Metanic-Username'] = request.user.username
 
         return response
