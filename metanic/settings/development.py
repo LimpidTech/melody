@@ -26,8 +26,13 @@ METANIC_REDIRECT_URL = 'http://localhost:3030/'
 STATIC_ROOT = project_path('static')
 STATIC_URL = '/static/'
 
-REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {}
 REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
+
+REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
+    'anon': env_value('anon_throttle_rate', default='100/second'),
+    'sensitive': env_value('sensitive_throttle_rate', default='100/second'),
+    'user': env_value('user_throttle_rate', default='100/second'),
+}
 
 INSTALLED_APPS += [
     'livereload',  # LiveReload needs to precede staticfiles

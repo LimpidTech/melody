@@ -55,6 +55,7 @@ class CORSMiddleware(object):
     """ Provides necessary responses and headers for CORS requests. """
 
     # TODO:
+    #
     #  - Verify that this matches the spec (it probably doesn't yet :D)
     #
     #  - Consider only using this for dev. There's no reason for these requests
@@ -67,10 +68,14 @@ class CORSMiddleware(object):
     def __call__(self, request):
         response = self.get_response(request)
 
-        origin = request.META.get(HTTP_ORIGIN, None)
         method = request.META.get(HTTP_ACR_METHOD, None)
 
-        if origin and method and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
+        if request.method == 'OPTIONS' and not method:
+            raise http.HttpResponseForbidden()
+
+        origin = request.META.get(HTTP_ORIGIN, None)
+
+        if origin and origin_is_match(CORS_ALLOWED_ORIGINS, origin):
             response['Access-Control-Allow-Origin'] = request.META['HTTP_ORIGIN']
             response['Access-Control-Allow-Methods'] = ",".join(CORS_ALLOWED_METHODS)
             response['Access-Control-Allow-Headers'] = ",".join(CORS_ALLOWED_HEADERS)
