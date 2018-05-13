@@ -8,7 +8,6 @@ from metanic.settings.defaults import *  # noqa
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['services.metanic.org']
 FRONTEND_URL = 'metanic.org'
 METANIC_REDIRECT_URL = 'https://metanic.org/'
 ROOT_URLCONF = 'metanic.core.urls.production'

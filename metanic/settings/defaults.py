@@ -112,5 +112,11 @@ CORS_ALLOWED_HEADERS = [
 ]
 
 ALLOWED_HOSTS = [
+    'services.metanic.org',
+]
+
+CORS_ALLOWED_ORIGINS = [
     'metanic.org',
 ]
+
+INTERNAL_IPS = []
