@@ -39,6 +39,14 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = auth_models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    def get_permissions(self):
+        """ Override permissions so that unauthenticated users can create accounts. """
+
+        if self.action == 'create':
+            return []
+
+        return super(UserViewSet, self).get_permissions()
+
     def filter_queryset(self, queryset):
         """ Ensure that users can not view details for other users. """
 
@@ -48,6 +56,8 @@ class UserViewSet(viewsets.ModelViewSet):
         return queryset.filter(pk=self.request.user.pk)
 
     def retrieve(self, request, pk):
+        """ Get user information. """
+
         if request.user.is_authenticated and pk == 'current':
             return http.HttpResponseRedirect(
                 redirect_to=urls.
@@ -56,7 +66,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 })
             )
 
-        return super(UserViewSet, self).retrieve(pk)
+        return super(UserViewSet, self).retrieve(request, pk)
 
 
 class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
