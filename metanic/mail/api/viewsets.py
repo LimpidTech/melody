@@ -17,6 +17,7 @@ from . import serializers
 
 
 class BaseMailViewSet(viewsets.ViewSet, generics.GenericAPIView):
+    authentication_classes = ()
     permission_classes = ()
 
     def update_serializer_data(self, request, data):

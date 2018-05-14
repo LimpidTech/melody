@@ -11,7 +11,9 @@ from . import serializers
 
 
 class CollectionViewSet(viewsets.ViewSet):
+    authentication_classes = ()
     permission_classes = ()
+
     serializer_class = serializers.CollectionSerializer
 
     def list(self, request):
