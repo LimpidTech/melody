@@ -109,6 +109,9 @@ class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
         if user is None:
             return response.Response({'username': None}, status=401)
 
+        # The user is now authenticated, so bind them to the request.
+        request.user = user
+
         if redirect_url is not None:
             return http.HttpResponseRedirect(redirect_url)
 

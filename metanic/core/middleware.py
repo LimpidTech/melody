@@ -105,7 +105,7 @@ class HeaderExtensionMiddleware(object):
 
         if request.user.is_authenticated:
             response['X-Metanic-Identifier'] = urls.reverse('user-detail', kwargs={
-                'pk': request.user.username,
+                'pk': request.user.pk,
             })
 
         response['X-Metanic-IsAuthenticated'] = request.user.is_authenticated
