@@ -9,41 +9,33 @@ from django.db.models import *  # noqa
 
 
 class Model(Model):
+    """ By default, our Models don't have IDs because they're often unnecessary.
+    
+    """
+
     id = None
 
     class Meta(object):
         abstract = True
 
 
-class UUIDModelMixin(object):
+class UUIDModel(UUIDModelMixin, Model):
+    """ Model providing UUIDs """
+
     id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta(Model.Meta):
+        abstract = True
 
     def __str__(self):
         return str(self.pk)
 
 
-class UUIDModel(UUIDModelMixin, Model):
-    """ Model providing UUIDs """
+class CreateUpdateModel(UUIDModel):
+    """ Model providing UUIDs and create/update timings. """
 
-    class Meta(object):
-        abstract = True
-
-
-class CreateUpdateModelMixin(object):
     created = DateTimeField(auto_now_add=True, editable=False)
     last_modified = DateTimeField(auto_now=True, editable=False)
 
-    class Meta(object):
+    class Meta(UUIDModel.Meta):
         ordering = ('-last_modified', '-created')
-
-
-class CreateUpdateModel(CreateUpdateModelMixin, UUIDModel):
-    """ Model providing UUIDs and create/update timings. """
-
-    # TODO: Django apparently requires this. The Mixin doesn't add them. Something silly going on.
-    id = UUIDModelMixin.id
-    created = CreateUpdateModelMixin.created
-    last_modified = CreateUpdateModelMixin.last_modified
-
-    class Meta(CreateUpdateModelMixin.Meta):
-        abstract = True
