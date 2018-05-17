@@ -1,7 +1,6 @@
 from django import http
 from django.conf import settings
 from django.contrib.auth import logout
-from django.contrib.auth import models as auth_models
 from django.utils import decorators
 from django.views.decorators import csrf
 from django import urls
@@ -13,6 +12,7 @@ from rest_framework import viewsets
 from rest_framework_jwt import authentication as jwt_authentication
 
 from metanic.accounts import authentication
+from metanic.accounts import models
 from metanic.rest import throttling
 
 from . import serializers
@@ -36,7 +36,7 @@ def get_redirect_url(uri):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = auth_models.User.objects.all()
+    queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
     def get_permissions(self):

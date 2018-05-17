@@ -25,6 +25,7 @@ def cache_url(url):
     }
 
 
+AUTH_USER_MODEL = 'accounts.User'
 DATE_FORMAT = 'Y-m-d'
 DEFAULT_FROM_EMAIL = 'services@metanic.monokro.me'
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
@@ -38,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+
     'anymail',
     'channels',
     'raven.contrib.django.raven_compat',
     'rest_framework',
+
     'metanic.accounts',
     'metanic.collector',
     'metanic.core',

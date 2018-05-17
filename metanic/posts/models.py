@@ -1,19 +1,18 @@
-from django.contrib.auth import models as auth_models
 from zope import interface
 
 from metanic.core import models
 from metanic.collector import collection
 
+from metanic.accounts import models as accounts_models
 from metanic.posts import renderer
 
 
-class Post(models.CreateUpdateModelMixin, models.UUIDModel,
-           renderer.Renderable):
+class Post(renderer.Renderable, models.CreateUpdateModel):
     subject = models.TextField()
     body = models.TextField()
 
     author = models.ForeignKey(
-        auth_models.User,
+        accounts_models.User,
         on_delete=models.PROTECT,
         null=True,
     )
@@ -29,10 +28,10 @@ class Post(models.CreateUpdateModelMixin, models.UUIDModel,
     class Meta(object):
         ordering = (
             '-in_reply_to__created',
-        ) + models.CreateUpdateModelMixin.Meta.ordering
+        ) + models.CreateUpdateModel.Meta.ordering
 
 
-class History(models.CreateUpdateModelMixin, models.UUIDModel):
+class History(models.CreateUpdateModel, models.UUIDModel):
     post = models.ForeignKey(
         Post,
         related_name='history',
@@ -40,11 +39,11 @@ class History(models.CreateUpdateModelMixin, models.UUIDModel):
     )
 
     class Meta(object):
-        ordering = ('post', models.CreateUpdateModelMixin.Meta.ordering)
+        ordering = ('post', models.CreateUpdateModel.Meta.ordering)
 
 
 @interface.implementer(collection.ICollection)
-class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
+class Topic(models.CreateUpdateModel):
     name = models.TextField(unique=True)
 
     posts = models.ManyToManyField(
@@ -61,7 +60,7 @@ class Topic(models.CreateUpdateModelMixin, models.UUIDModel):
         self.name = self.name.lower().strip()
         return super(Topic, self).save(*args, **kwargs)
 
-    class Meta(models.CreateUpdateModelMixin.Meta):
+    class Meta(models.CreateUpdateModel.Meta):
         verbose_name_plural = 'topics'
 
 
@@ -79,7 +78,7 @@ class Category(Topic):
 
         return super(Category, self).save(*args, **kwargs)
 
-    class Meta(models.CreateUpdateModelMixin.Meta):
+    class Meta(models.CreateUpdateModel.Meta):
         verbose_name_plural = 'categories'
 
-        ordering = ('parent',) + models.CreateUpdateModelMixin.Meta.ordering
+        ordering = ('parent',) + models.CreateUpdateModel.Meta.ordering
