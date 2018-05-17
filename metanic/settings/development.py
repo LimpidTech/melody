@@ -9,8 +9,6 @@ from metanic.settings.defaults import project_path
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
 
-DEBUG = True
-
 ROOT_URLCONF = 'metanic.core.urls.development'
 
 SECRET_KEY = env_value(
@@ -18,6 +16,7 @@ SECRET_KEY = env_value(
     'diagonal stunning powder ledge employ dealer',
 )
 
+DEBUG = False
 DEFAULT_FROM_EMAIL = 'services@metanic.local'
 FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
 MEDIA_ROOT = project_path('media')
@@ -50,18 +49,6 @@ MIDDLEWARE += [
 
 CACHES = {
     'default': cache_url('redis://localhost:6379/0'),
-}
-
-DATABASES = {
-    'default':
-        {
-            'ENGINE':
-                'django.db.backends.sqlite3',
-            'NAME':
-                project_path(
-                    env_value('DATABASE_FILENAME', 'metanic.sqlite3')
-                ),
-        },
 }
 
 ALLOWED_HOSTS = [
