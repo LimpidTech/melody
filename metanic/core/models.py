@@ -19,7 +19,7 @@ class Model(Model):
         abstract = True
 
 
-class UUIDModel(UUIDModelMixin, Model):
+class UUIDModel(Model):
     """ Model providing UUIDs """
 
     id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
