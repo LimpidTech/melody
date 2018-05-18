@@ -1,14 +1,12 @@
 import uuid
 
-from django.db.models import DateTimeField
-from django.db.models import Model
-from django.db.models import UUIDField
+from django.db import models
 
 # Using `import *` here to inherit the entire Django Model interface
 from django.db.models import *  # noqa
 
 
-class Model(Model):
+class Model(models.Model):
     """ By default, our Models don't have IDs because they're often unnecessary.
     
     """
@@ -19,10 +17,10 @@ class Model(Model):
         abstract = True
 
 
-class UUIDModel(Model):
+class UUIDModel(models.Model):
     """ Model providing UUIDs """
 
-    id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     class Meta(Model.Meta):
         abstract = True
@@ -34,8 +32,9 @@ class UUIDModel(Model):
 class CreateUpdateModel(UUIDModel):
     """ Model providing UUIDs and create/update timings. """
 
-    created = DateTimeField(auto_now_add=True, editable=False)
-    last_modified = DateTimeField(auto_now=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_modified = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta(UUIDModel.Meta):
+        abstract = True
         ordering = ('-last_modified', '-created')

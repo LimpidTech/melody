@@ -25,21 +25,13 @@ class Post(renderer.Renderable, models.CreateUpdateModel):
         related_name='replies',
     )
 
-    class Meta(object):
-        ordering = (
-            '-in_reply_to__created',
-        ) + models.CreateUpdateModel.Meta.ordering
 
-
-class History(models.CreateUpdateModel, models.UUIDModel):
+class History(models.CreateUpdateModel):
     post = models.ForeignKey(
         Post,
         related_name='history',
         on_delete=models.PROTECT,
     )
-
-    class Meta(object):
-        ordering = ('post', models.CreateUpdateModel.Meta.ordering)
 
 
 @interface.implementer(collection.ICollection)
@@ -80,5 +72,3 @@ class Category(Topic):
 
     class Meta(models.CreateUpdateModel.Meta):
         verbose_name_plural = 'categories'
-
-        ordering = ('parent',) + models.CreateUpdateModel.Meta.ordering
