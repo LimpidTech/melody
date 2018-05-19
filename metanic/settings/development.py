@@ -34,7 +34,6 @@ REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
 }
 
 INSTALLED_APPS += [
-    'livereload',  # LiveReload needs to precede staticfiles
     'debug_toolbar',
     'django_extensions',
 ]
