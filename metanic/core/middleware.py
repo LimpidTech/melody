@@ -103,7 +103,7 @@ class CORSMiddleware(object):
         requested_method = request.META.get(HTTP_ACR_METHOD, None)
         requested_headers = request.META.get('Access-Control-Request-Headers', []).split(',')
 
-        for requested_method not in ALLOW_METHODS:
+        if requested_method not in ALLOW_METHODS:
             return response
 
         # The spec requires these to be ASCII and case-insensitive, so lower() is a safe comparison
