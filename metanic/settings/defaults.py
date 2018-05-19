@@ -120,10 +120,6 @@ CORS_ALLOWED_HEADERS = [
     'Authorization',
 ]
 
-ALLOWED_HOSTS = [
-    'services.metanic.org',
-]
-
 CORS_ALLOWED_ORIGINS = [
     'https://metanic.org',
 ]
