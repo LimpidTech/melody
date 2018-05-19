@@ -4,8 +4,7 @@ from metanic.settings.defaults import REST_FRAMEWORK
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
-from metanic.settings.defaults import project_path
-
+from metanic.settings.defaults import project_path 
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
 
@@ -50,6 +49,12 @@ CACHES = {
     'default': cache_url('redis://localhost:6379/0'),
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': project_path(env_value('DATABASE_FILENAME', 'metanic.sqlite3')),
+    },
+}
 ALLOWED_HOSTS = [
     'localhost',
     'metanic.local',
