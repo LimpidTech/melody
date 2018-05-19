@@ -15,7 +15,8 @@ SECRET_KEY = env_value('secret_key')
 STATIC_URL = env_value('static_url')
 
 ALLOWED_HOSTS = [
-    env_value('hostname'),
+    'metanic.services',
+    'metanic-services.herokuapp.com',
 ]
 
 CACHES = {
