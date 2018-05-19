@@ -33,12 +33,12 @@ MAILGUN_API_KEY = env_value('mailgun_api_key')
 USE_L10N = True
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
 
     'anymail',
     'channels',
