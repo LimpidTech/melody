@@ -15,7 +15,7 @@ SECRET_KEY = env_value(
     'diagonal stunning powder ledge employ dealer',
 )
 
-DEBUG = False
+DEBUG = True
 DEFAULT_FROM_EMAIL = 'services@metanic.local'
 FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
 MEDIA_ROOT = project_path('media')
