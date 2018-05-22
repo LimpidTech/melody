@@ -113,7 +113,7 @@ COLLECTION_SERIALIZER_TYPES = {
     'post': ('metanic.posts.api.serializers', 'PostSerializer'),
 }
 
-CORS_ALLOWED_HEADERS = [
+ACCESS_CONTROL_ALLOW_HEADERS = [
     'Accept',
     'Content-Type',
     'Authorization',

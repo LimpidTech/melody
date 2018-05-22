@@ -10,6 +10,7 @@ ACCESS_CONTROL_ALLOW_HEADERS = set(map(str.lower, getattr(
     settings, 'ACCESS_CONTROL_ALLOW_HEADERS', [
         'Content-Type',
         'Accept',
+        'Authorization',
     ]
 )))
 
