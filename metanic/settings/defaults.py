@@ -60,7 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'metanic.core.middleware.CORSMiddleware',
-    'metanic.core.middleware.HeaderExtensionMiddleware',
+    'metanic.core.middleware.HSTSMiddleware',
+    'metanic.core.middleware.AuthenticationHeadersMiddleware',
 ]
 
 TEMPLATES = [

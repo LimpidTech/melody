@@ -9,6 +9,7 @@ from metanic.settings.defaults import *  # noqa
 DEBUG = False
 
 FRONTEND_URL = 'metanic.org'
+HSTS_ALLOW_PRELOAD = True
 METANIC_REDIRECT_URL = 'https://metanic.org/'
 ROOT_URLCONF = 'metanic.core.urls.production'
 SECRET_KEY = env_value('secret_key')
@@ -30,7 +31,6 @@ ACCESS_CONTROL_ALLOW_ORIGINS = [
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500),
 }
-
 
 RAVEN_CONFIG = {
     'dsn': env_value('sentry_dsn'),
