@@ -1,4 +1,5 @@
 import dj_database_url
+import json
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
@@ -8,6 +9,7 @@ from metanic.settings.defaults import *  # noqa
 
 AWS_ACCESS_KEY_ID = env_value('AWS_ACCESS_KEY_ID')
 AWS_DEFAULT_ACL = env_value('aws_default_acl', default='public-read')
+AWS_S3_CUSTOM_DOMAIN = env_value('AWS_S3_CUSTOM_DOMAIN')
 AWS_S3_REGION_NAME = env_value('aws_s3_region', default='us-west-1')
 AWS_S3_HOST = 'metanic.media'
 AWS_SECRET_ACCESS_KEY = env_value('AWS_SECRET_ACCESS_KEY')
