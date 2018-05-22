@@ -10,6 +10,7 @@ DEBUG = False
 
 FRONTEND_URL = 'metanic.org'
 HSTS_ALLOW_PRELOAD = True
+HSTS_INCLUDE_SUBDOMAINS = True
 METANIC_REDIRECT_URL = 'https://metanic.org/'
 ROOT_URLCONF = 'metanic.core.urls.production'
 SECRET_KEY = env_value('secret_key')
