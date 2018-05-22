@@ -16,6 +16,7 @@ class ContentSecurityPolicyMiddleware(object):
             'img-src https://metanic.media; '
             'media-src https://metanic.media; '
             'script-src https://metanic.media; '
+            'style-src https://metanic.media; '
             'report-uri https://metsanic.services/security_policie_report/; '
         )
 
