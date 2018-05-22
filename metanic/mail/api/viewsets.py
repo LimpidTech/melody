@@ -133,19 +133,17 @@ class LocationBasedEventMixin(object):
     def update_serializer_data(self, request, data):
         super().update_serializer_data(request, data)
 
-        data.update(
-            {
-                'city': request.data['city'],
-                'country': request.data['country'],
-                'region': request.data['region'],
-                'client_name': request.data['client-name'],
-                'client_os': request.data['client-os'],
-                'client_type': request.data['client-type'],
-                'device_type': request.data['device-type'],
-                'user_agent': request.data['user-agent'],
-                'ip': request.data['ip'],
-            }
-        )
+        data.update({
+            'city': request.data['city'],
+            'country': request.data['country'],
+            'region': request.data['region'],
+            'client_name': request.data['client-name'],
+            'client_os': request.data['client-os'],
+            'client_type': request.data['client-type'],
+            'device_type': request.data['device-type'],
+            'user_agent': request.data['user-agent'],
+            'ip': request.data['ip'],
+        })
 
 
 class MailUnsubscribeViewSet(LocationBasedEventMixin, BaseMailViewSet):
