@@ -13,11 +13,13 @@ class ContentSecurityPolicyMiddleware(object):
 
         return (
             'default-src htts://metanic.services; '
+            'font-src https://metanic.media; '
             'img-src https://metanic.media; '
             'media-src https://metanic.media; '
             'script-src https://metanic.media; '
             'style-src https://metanic.media; '
             'report-uri https://metsanic.services/security_policie_report/; '
+            'block-all-mixed-content; '
         )
 
     def __call__(self, request):
