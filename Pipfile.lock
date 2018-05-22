@@ -57,6 +57,20 @@
             ],
             "version": "==1.0.31"
         },
+        "boto3": {
+            "hashes": [
+                "sha256:a21ca783cb8682fce106c806d31fe21c1ef1f9b8d7fc531559f98ec13a000aa8",
+                "sha256:fa49ad9188a432a0e344bac6afad9781a5366afe5b2047e8096083918e1767b6"
+            ],
+            "version": "==1.7.25"
+        },
+        "botocore": {
+            "hashes": [
+                "sha256:687b916a82d0477131b0c9949781f5b848fdff83c33f565989802d272576915b",
+                "sha256:a0694aa2a11951966758f3d0e2b40a1f597e8dfd0c9338bc532c1a40796a15fe"
+            ],
+            "version": "==1.10.25"
+        },
         "certifi": {
             "hashes": [
                 "sha256:13e698f54293db9f89122b0581843a782ad0934a4fe0172d2a980ba77fc61bb7",
@@ -147,6 +161,14 @@
             ],
             "version": "==1.11.0"
         },
+        "docutils": {
+            "hashes": [
+                "sha256:02aec4bd92ab067f6ff27a38a38a41173bf01bed8f89157768c1573f53e474a6",
+                "sha256:51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274",
+                "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"
+            ],
+            "version": "==0.14"
+        },
         "e1839a8": {
             "editable": true,
             "path": "."
@@ -171,6 +193,13 @@
                 "sha256:7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"
             ],
             "version": "==17.5.0"
+        },
+        "jmespath": {
+            "hashes": [
+                "sha256:6a81d4c9aa62caf061cb517b4d9ad1dd300374cd4706997aff9cd6aedd61fc64",
+                "sha256:f11b4461f425740a1d908e9a3f7365c3d2e569f6ca68a2ff8bc5bcd9676edd63"
+            ],
+            "version": "==0.9.3"
         },
         "markdown": {
             "hashes": [
@@ -218,6 +247,14 @@
             ],
             "version": "==1.6.3"
         },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:1adb80e7a782c12e52ef9a8182bebeb73f1d7e24e374397af06fb4956c8dc5c0",
+                "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
+            ],
+            "markers": "python_version >= '2.7'",
+            "version": "==2.7.3"
+        },
         "python-memcached": {
             "hashes": [
                 "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594",
@@ -252,6 +289,13 @@
                 "sha256:9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e"
             ],
             "version": "==2.18.4"
+        },
+        "s3transfer": {
+            "hashes": [
+                "sha256:90dc18e028989c609146e241ea153250be451e05ecc0c2832565231dacdf59c1",
+                "sha256:c7a9ec356982d5e9ab2d4b46391a7d6a950e2b04c472419f5fdec70cc0ada72f"
+            ],
+            "version": "==0.1.13"
         },
         "six": {
             "hashes": [
@@ -351,6 +395,20 @@
             ],
             "version": "==1.0.31"
         },
+        "boto3": {
+            "hashes": [
+                "sha256:a21ca783cb8682fce106c806d31fe21c1ef1f9b8d7fc531559f98ec13a000aa8",
+                "sha256:fa49ad9188a432a0e344bac6afad9781a5366afe5b2047e8096083918e1767b6"
+            ],
+            "version": "==1.7.25"
+        },
+        "botocore": {
+            "hashes": [
+                "sha256:687b916a82d0477131b0c9949781f5b848fdff83c33f565989802d272576915b",
+                "sha256:a0694aa2a11951966758f3d0e2b40a1f597e8dfd0c9338bc532c1a40796a15fe"
+            ],
+            "version": "==1.10.25"
+        },
         "certifi": {
             "hashes": [
                 "sha256:13e698f54293db9f89122b0581843a782ad0934a4fe0172d2a980ba77fc61bb7",
@@ -441,6 +499,14 @@
             ],
             "version": "==1.11.0"
         },
+        "docutils": {
+            "hashes": [
+                "sha256:02aec4bd92ab067f6ff27a38a38a41173bf01bed8f89157768c1573f53e474a6",
+                "sha256:51e64ef2ebfb29cae1faa133b3710143496eca21c530f3f71424d77687764274",
+                "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"
+            ],
+            "version": "==0.14"
+        },
         "e1839a8": {
             "editable": true,
             "path": "."
@@ -465,6 +531,13 @@
                 "sha256:7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"
             ],
             "version": "==17.5.0"
+        },
+        "jmespath": {
+            "hashes": [
+                "sha256:6a81d4c9aa62caf061cb517b4d9ad1dd300374cd4706997aff9cd6aedd61fc64",
+                "sha256:f11b4461f425740a1d908e9a3f7365c3d2e569f6ca68a2ff8bc5bcd9676edd63"
+            ],
+            "version": "==0.9.3"
         },
         "markdown": {
             "hashes": [
@@ -512,6 +585,14 @@
             ],
             "version": "==1.6.3"
         },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:1adb80e7a782c12e52ef9a8182bebeb73f1d7e24e374397af06fb4956c8dc5c0",
+                "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
+            ],
+            "markers": "python_version >= '2.7'",
+            "version": "==2.7.3"
+        },
         "python-memcached": {
             "hashes": [
                 "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594",
@@ -546,6 +627,13 @@
                 "sha256:9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e"
             ],
             "version": "==2.18.4"
+        },
+        "s3transfer": {
+            "hashes": [
+                "sha256:90dc18e028989c609146e241ea153250be451e05ecc0c2832565231dacdf59c1",
+                "sha256:c7a9ec356982d5e9ab2d4b46391a7d6a950e2b04c472419f5fdec70cc0ada72f"
+            ],
+            "version": "==0.1.13"
         },
         "six": {
             "hashes": [
