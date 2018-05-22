@@ -85,6 +85,8 @@ class CORSMiddleware(object):
         response = self.get_response(request)
         origin = request.META.get(HTTP_ORIGIN, None)
 
+        print(origin, origin_is_match(ACCESS_CONTROL_ALLOW_ORIGINS, origin))
+
         if not origin_is_match(ACCESS_CONTROL_ALLOW_ORIGINS, origin):
             # We have an Origin header, but it doesn't match ALLOW origins. Don't allow CORS here.
             return response
@@ -101,26 +103,30 @@ class CORSMiddleware(object):
 
         # At this point, we know that we have a pre-flight request
         requested_method = request.META.get(HTTP_ACR_METHOD, None)
-        requested_headers = request.META.get('Access-Control-Request-Headers', []).split(',')
+        requested_headers = request.META.get('Access-Control-Request-Headers', [])
 
-        if requested_method not in ALLOW_METHODS:
+        if requested_method not in ACCESS_CONTROL_ALLOW_METHODS_VALUE:
             return response
 
         # The spec requires these to be ASCII and case-insensitive, so lower() is a safe comparison
         # in this case. Note that we intentionally don't do this above in some cases in order to
         # avoid any potential hacks using UTF-8 characters.
-        ALLOW_and_requested_header_values = []
 
-        for header in requested_headers:
-            if header.lower() not in ALLOW_HEADERS:
-                # Since the header isn't ALLOW, we don't allow the requested request
-                return response
+        if len(requested_headers) is 0:
+            allowed_and_requested_header_values = ACCESS_CONTROL_ALLOW_HEADERS
+        else:
+            allowed_and_requested_header_values = []
 
-            ALLOW_and_requested_header_values.append(header)
+            for header in requested_headers:
+                if header.lower() not in ALLOW_HEADERS:
+                    # Since the header isn't ALLOW, we don't allow the requested request
+                    return response
+
+                allowed_and_requested_header_values.append(header)
 
         response['Access-Control-Max-Age'] = ACCESS_CONTROL_MAX_AGE
         response['Access-Control-Allow-Methods'] = ACCESS_CONTROL_ALLOW_METHODS_VALUE
-        response['Access-Control-Allow-Headers'] = ','.join(ALLOW_and_requested_header_values)
+        response['Access-Control-Allow-Headers'] = ','.join(allowed_and_requested_header_values)
 
         return response
 

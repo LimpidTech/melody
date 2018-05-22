@@ -15,6 +15,10 @@ SECRET_KEY = env_value(
     'diagonal stunning powder ledge employ dealer',
 )
 
+ACCESS_CONTROL_ALLOW_ORIGINS = [
+    'localhost:3030',
+]
+
 DEBUG = True
 DEFAULT_FROM_EMAIL = 'services@metanic.local'
 FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
