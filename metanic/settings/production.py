@@ -46,6 +46,10 @@ INSTALLED_APPS += [
     'storages',
 ]
 
+MIDDLEWARE += [
+    'metanic.core.middleware.ContentSecurityPolicyMiddleware',
+]
+
 RAVEN_CONFIG = {
     'dsn': env_value('sentry_dsn'),
 }
