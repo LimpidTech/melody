@@ -23,6 +23,15 @@ CACHES = {
     'default': cache_url(env_value('redis_url')),
 }
 
+ACCESS_CONTROL_ALLOW_ORIGINS = [
+    'metanic.org',
+]
+
+ACCESS_CONTROL_ALLOW_HEADERS = [
+    'Content-Type',
+    'Accept',
+    'Authentication',
+]
 
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500),

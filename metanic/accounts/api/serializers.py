@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from django.contrib.auth import models as auth_models
+from metanic.accounts import models
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -21,7 +21,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return super(UserSerializer, self).validate(data)
 
     class Meta(object):
-        model = auth_models.User
+        model = models.User
 
         fields = (
             'url',

@@ -86,9 +86,7 @@ CHANNEL_LAYERS = {
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # TODO: Don't use sessions unless development
-        'metanic.rest.authentication.RestSessionAuthentication',
-        'metanic.rest.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 
     'DEFAULT_PERMISSION_CLASSES': [

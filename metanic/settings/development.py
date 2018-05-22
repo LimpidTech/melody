@@ -25,6 +25,9 @@ STATIC_ROOT = project_path('static')
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
+REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += (
+    'rest_framework.authentication.SessionAuthentication',
+)
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
     'anon': env_value('anon_throttle_rate', default='100/second'),
