@@ -6,8 +6,12 @@ from metanic.settings.defaults import env_value
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
 
+AWS_DEFAULT_ACL = env_value('aws_default_acl', default='public-read')
+AWS_S3_REGION_NAME = env_value('aws_s3_region', default='us-west-1')
+AWS_S3_HOST = 'metanic.media'
+AWS_STORAGE_BUCKET_NAME = env_value('aws_storage_bucket_name')
 DEBUG = False
-
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 FRONTEND_URL = 'metanic.org'
 HSTS_ALLOW_PRELOAD = True
 HSTS_INCLUDE_SUBDOMAINS = True
@@ -15,6 +19,11 @@ METANIC_REDIRECT_URL = 'https://metanic.org/'
 ROOT_URLCONF = 'metanic.core.urls.production'
 SECRET_KEY = env_value('secret_key')
 STATIC_URL = env_value('static_url')
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+ACCESS_CONTROL_ALLOW_ORIGINS = [
+    'metanic.org',
+]
 
 ALLOWED_HOSTS = [
     'metanic.services',
@@ -25,13 +34,13 @@ CACHES = {
     'default': cache_url(env_value('redis_url')),
 }
 
-ACCESS_CONTROL_ALLOW_ORIGINS = [
-    'metanic.org',
-]
-
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=500),
 }
+
+INSTALLED_APPS += [
+    'storages',
+]
 
 RAVEN_CONFIG = {
     'dsn': env_value('sentry_dsn'),
