@@ -7,8 +7,8 @@ from django.db.models import *  # noqa
 
 
 class Model(models.Model):
-    """ By default, our Models don't have IDs because they're often unnecessary.
-    
+    """ By default, our Models don't have IDs because they're often unnecessary.
+
     """
 
     id = None
