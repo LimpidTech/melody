@@ -1,10 +1,8 @@
 from django import http
 
 from rest_framework import response
-from rest_framework import generics
 from rest_framework import viewsets
 
-from metanic.collector import collection
 from metanic.collector import registration
 
 from . import serializers

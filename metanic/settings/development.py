@@ -4,7 +4,7 @@ from metanic.settings.defaults import REST_FRAMEWORK
 
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
-from metanic.settings.defaults import project_path 
+from metanic.settings.defaults import project_path
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
 
