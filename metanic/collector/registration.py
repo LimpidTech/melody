@@ -11,7 +11,7 @@ registry = adapter.AdapterRegistry()
 
 
 def register(Kind):
-    registry.register([], collection.ICollection, Kind.name, Kind)
+    registry.register([], collection.ICollection, Kind.name, Kind())
 
 
 def lookup(name):

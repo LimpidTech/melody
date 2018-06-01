@@ -23,17 +23,17 @@ class CollectionViewSet(viewsets.ViewSet):
                 'A collection name is required.',
             )
 
-        Kind = registration.lookup(pk)
+        instance = registration.lookup(pk)
 
-        if Kind is None:
+        if instance is None:
             raise http.Http404(
                 'No collections were found matching the given name.',
             )
 
-        instance = Kind(self.request)
-
         serializer = self.serializer_class(
-            instance, context={
+            instance(self.request),
+            many=True,
+            context={
                 'request': self.request,
             }
         )

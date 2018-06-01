@@ -8,9 +8,9 @@ from metanic.posts import models as posts_models
 class RecentPostsCollection(collection.Collection):
     name = 'recent_posts'
 
-    def __init__(self, request):
-        super(RecentPostsCollection, self).__init__(request=request)
+    def __init__(self):
+        super(RecentPostsCollection, self).__init__()
         self.pk = self.__class__.name
 
-    def items(self):
+    def items(self, request):
         return posts_models.Post.objects.all()[:10]

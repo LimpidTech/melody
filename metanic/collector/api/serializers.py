@@ -34,7 +34,3 @@ class MultiResourceRelatedField(serializers.RelatedField):
 class CollectionSerializer(serializers.Serializer):
     url = serializers.HyperlinkedIdentityField(view_name='collection-detail')
     name = serializers.CharField()
-    items = MultiResourceRelatedField(many=True, read_only=True)
-
-    def get_items(self, obj):
-        return obj.items()
