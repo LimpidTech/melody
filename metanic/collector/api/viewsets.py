@@ -20,9 +20,7 @@ class CollectionViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(
             collections,
             many=True,
-            context={
-                'request': self.request,
-            }
+            context={'request': self.request},
         )
 
         return response.Response(serializer.data, status=200)
@@ -43,9 +41,7 @@ class CollectionViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(
             instance(self.request),
             many=True,
-            context={
-                'request': self.request,
-            }
+            context={'request': self.request},
         )
 
         return response.Response(serializer.data, status=200)
