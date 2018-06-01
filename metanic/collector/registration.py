@@ -14,6 +14,10 @@ def register(Kind):
     registry.register([], collection.ICollection, Kind.name, Kind())
 
 
+def all():
+    return registry.lookupAll([], collection.ICollection)
+
+
 def lookup(name):
     return registry.lookup([], collection.ICollection, name)
 

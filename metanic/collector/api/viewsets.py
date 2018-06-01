@@ -15,7 +15,17 @@ class CollectionViewSet(viewsets.ViewSet):
     serializer_class = serializers.CollectionSerializer
 
     def list(self, request):
-        return response.Response([], status=200)
+        collections = [collection for _, collection in registration.all()]
+
+        serializer = self.serializer_class(
+            collections,
+            many=True,
+            context={
+                'request': self.request,
+            }
+        )
+
+        return response.Response(serializer.data, status=200)
 
     def retrieve(self, request, pk=None):
         if pk is None:
