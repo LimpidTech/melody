@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'metanic.mail',
     'metanic.posts',
     'metanic.realtime',
-]
+
+# This lets you add METANIC_PLUGIN_MODULES to your environment to add
+# additional functionality without forking Metanic.
+] + list(filter(None, env_value('plugin_modules', default='').split(',')))
 
 MIDDLEWARE = [
     'metanic.core.middleware.CORSMiddleware',
