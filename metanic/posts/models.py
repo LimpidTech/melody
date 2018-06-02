@@ -25,6 +25,9 @@ class Post(renderer.Renderable, models.CreateUpdateModel):
         related_name='replies',
     )
 
+    def __str__(self):
+        return self.subject
+
 
 class History(models.CreateUpdateModel):
     post = models.ForeignKey(

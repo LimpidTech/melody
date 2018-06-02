@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from django.conf import settings
 
+DEFAULT_COLLECTION_NAME_FIELD = 'name'
 COLLECTION_SERIALIZER_TYPES = settings.COLLECTION_SERIALIZER_TYPES
 
 def get_serializer(module_name, attribute_name):
@@ -33,4 +34,22 @@ class MultiResourceRelatedField(serializers.RelatedField):
 
 class CollectionSerializer(serializers.Serializer):
     url = serializers.HyperlinkedIdentityField(view_name='collection-detail')
-    name = serializers.CharField()
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, collection_item):
+        collection_name_field = getattr(
+            collection_item,
+            'collection_name_field',
+            DEFAULT_COLLECTION_NAME_FIELD,
+        )
+
+        collection_name = getattr(
+            collection_item,
+            collection_name_field,
+            None
+        )
+
+        if collection_name is None:
+            collection_name = str(collection_item)
+
+        return collection_name
