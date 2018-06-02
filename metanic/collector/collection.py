@@ -10,7 +10,7 @@ class ICollection(Interface):
     def __call__(request):
         """ Create a new Collection for the given request. """
 
-    def items():
+    def items(request):
         """ Gets a list of resources in this collection. """
 
 
@@ -21,4 +21,4 @@ class Collection(object):
         self.resource_url = self.name.lower()
 
     def __call__(self, request):
-        self.request = request
+        return self.items(request)

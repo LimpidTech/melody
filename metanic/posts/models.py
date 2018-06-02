@@ -57,6 +57,9 @@ class Topic(models.CreateUpdateModel):
 
 
 class Category(Topic):
+    class Meta(models.CreateUpdateModel.Meta):
+        verbose_name_plural = 'categories'
+
     parent = models.ForeignKey(
         'self',
         on_delete=models.PROTECT,
@@ -69,6 +72,3 @@ class Category(Topic):
             self.parent = None
 
         return super(Category, self).save(*args, **kwargs)
-
-    class Meta(models.CreateUpdateModel.Meta):
-        verbose_name_plural = 'categories'

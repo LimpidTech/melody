@@ -11,7 +11,14 @@ registry = adapter.AdapterRegistry()
 
 
 def register(Kind):
-    registry.register([], collection.ICollection, Kind.name, Kind())
+    """ Register a given Collection type with the collector. """
+
+    registry.register(
+        [],
+        collection.ICollection,
+        Kind.name,
+        Kind()
+    )
 
 
 def all():
@@ -32,14 +39,17 @@ def register_attributes(module):
         if collection.ICollection.implementedBy(item):
             register(item)
 
+
 def append_module_name(module_name):
-    return '{}.{}'.format(module_name, 'collections')
+    return module_name + '.collections'
+
 
 def import_module(module_name):
     try:
         return importlib.import_module(module_name)
     except ImportError:
         return
+
 
 def autodiscover():
     module_names = map(append_module_name, settings.INSTALLED_APPS)
