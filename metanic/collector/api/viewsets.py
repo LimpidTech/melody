@@ -38,8 +38,7 @@ class CollectionViewSet(viewsets.ViewSet):
             )
 
         serializer = self.serializer_class(
-            instance(self.request),
-            many=True,
+            instance,
             context={'request': self.request},
         )
 

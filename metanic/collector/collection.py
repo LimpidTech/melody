@@ -18,6 +18,7 @@ class Collection(object):
     """ Implements boilerplate behaviors for Collection objects. """
 
     def __init__(self):
+        self.pk = self.__class__.name
         self.resource_url = self.name.lower()
 
     def __call__(self, request):

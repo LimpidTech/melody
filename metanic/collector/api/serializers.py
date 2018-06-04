@@ -6,6 +6,7 @@ from django.conf import settings
 DEFAULT_COLLECTION_NAME_FIELD = 'name'
 COLLECTION_SERIALIZER_TYPES = settings.COLLECTION_SERIALIZER_TYPES
 
+
 def get_serializer(module_name, attribute_name):
     return getattr(importlib.import_module(module_name), attribute_name)
 
