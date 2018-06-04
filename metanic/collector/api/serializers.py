@@ -36,6 +36,8 @@ class CollectionSerializer(serializers.Serializer):
     url = serializers.HyperlinkedIdentityField(view_name='collection-detail')
     name = serializers.SerializerMethodField()
 
+    items = MultiResourceRelatedField(many=True, read_only=True)
+
     def get_name(self, collection_item):
         collection_name_field = getattr(
             collection_item,
