@@ -29,14 +29,14 @@ def lookup(name):
     return registry.lookup([], collection.ICollection, name)
 
 
+def is_valid_collector(item):
+    return inspect.isclass(item) and collection.ICollection.implementedBy(item)
+
 def register_attributes(module):
     for attribute_name in dir(module):
         item = getattr(module, attribute_name)
 
-        if not inspect.isclass(item):
-            continue
-
-        if collection.ICollection.implementedBy(item):
+        if is_valid_collector(item):
             register(item)
 
 

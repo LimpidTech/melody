@@ -34,8 +34,12 @@ USE_L10N = True
 
 ACCESS_CONTROL_ALLOW_HEADERS = [
     'Accept',
-    'Content-Type',
     'Authorization',
+    'Content-Type',
+]
+
+ACCESS_CONTROL_ALLOW_ORIGINS = [
+    'https://metanic.org',
 ]
 
 ANYMAIL = {
@@ -53,10 +57,6 @@ CHANNEL_LAYERS = {
 COLLECTION_SERIALIZER_TYPES = {
     'post': ('metanic.posts.api.serializers', 'PostSerializer'),
 }
-
-CORS_ALLOWED_ORIGINS = [
-    'https://metanic.org',
-]
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -86,11 +86,12 @@ INTERNAL_IPS = []
 
 MIDDLEWARE = [
     'metanic.core.middleware.CORSMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'metanic.core.middleware.CORSMiddleware',
+
     'metanic.core.middleware.HSTSMiddleware',
     'metanic.core.middleware.AuthenticationHeadersMiddleware',
 ]

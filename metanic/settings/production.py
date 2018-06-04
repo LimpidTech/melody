@@ -10,8 +10,8 @@ from metanic.settings.defaults import *  # noqa
 AWS_ACCESS_KEY_ID = env_value('AWS_ACCESS_KEY_ID')
 AWS_DEFAULT_ACL = env_value('aws_default_acl', default='public-read')
 AWS_S3_CUSTOM_DOMAIN = env_value('aws_s3_custom_domain')
-AWS_S3_REGION_NAME = env_value('aws_s3_region', default='us-west-1')
 AWS_S3_HOST = 'metanic.media'
+AWS_S3_REGION_NAME = env_value('aws_s3_region', default='us-west-1')
 AWS_SECRET_ACCESS_KEY = env_value('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env_value('aws_storage_bucket_name')
 DEBUG = False
@@ -22,8 +22,8 @@ HSTS_INCLUDE_SUBDOMAINS = True
 METANIC_REDIRECT_URL = 'https://metanic.org/'
 ROOT_URLCONF = 'metanic.core.urls.production'
 SECRET_KEY = env_value('secret_key')
-STATIC_URL = env_value('static_url')
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = env_value('static_url')
 
 ACCESS_CONTROL_ALLOW_ORIGINS = [
     'metanic.org',

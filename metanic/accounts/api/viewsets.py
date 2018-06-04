@@ -71,15 +71,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class AuthenticationViewSet(viewsets.ViewSet, generics.GenericAPIView):
     permission_classes = ()
-    serializer_class = serializers.AuthenticationSerializer
-
-    authentication_classes = (
-        authentication.CSRFExemptAuthentication,
-        jwt_authentication.JSONWebTokenAuthentication,
-        rest_authentication.TokenAuthentication,
-    )
 
     throttle_classes = (throttling.SensitiveDataRateThrottle,)
+    serializer_class = serializers.AuthenticationSerializer
 
     @ensure_csrf
     def create(self, request):

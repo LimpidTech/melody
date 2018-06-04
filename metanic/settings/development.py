@@ -5,10 +5,20 @@ from metanic.settings.defaults import REST_FRAMEWORK
 from metanic.settings.defaults import cache_url
 from metanic.settings.defaults import env_value
 from metanic.settings.defaults import project_path
+
 # We specifically allow `import *` in this case to pull in expected settings
 from metanic.settings.defaults import *  # noqa
 
+DEBUG = True
+DEFAULT_FROM_EMAIL = 'services@metanic.local'
+FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
+MEDIA_ROOT = project_path('media')
+MEDIA_URL = '/media/'
+METANIC_REDIRECT_URL = 'http://localhost:3030/'
 ROOT_URLCONF = 'metanic.core.urls.development'
+STATIC_ROOT = project_path('static')
+STATIC_URL = '/static/'
+
 
 SECRET_KEY = env_value(
     'secret_key',
@@ -18,15 +28,6 @@ SECRET_KEY = env_value(
 ACCESS_CONTROL_ALLOW_ORIGINS = [
     'localhost:3030',
 ]
-
-DEBUG = True
-DEFAULT_FROM_EMAIL = 'services@metanic.local'
-FRONTEND_URL = env_value('frontend_url', 'http://localhost:3030/')
-MEDIA_ROOT = project_path('media')
-MEDIA_URL = '/media/'
-METANIC_REDIRECT_URL = 'http://localhost:3030/'
-STATIC_ROOT = project_path('static')
-STATIC_URL = '/static/'
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
 REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += (
@@ -62,12 +63,13 @@ DATABASES = {
         'NAME': project_path(env_value('DATABASE_FILENAME', 'metanic.sqlite3')),
     },
 }
+
 ALLOWED_HOSTS = [
     'localhost',
     'metanic.local',
 ]
 
-CORS_ALLOWED_ORIGINS = [
+ACCESS_CONTROL_ALLOW_ORIGINS = [
     '::1:',
     '127.0.0.1',
     '127.0.0.1:*',
