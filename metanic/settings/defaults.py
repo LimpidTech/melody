@@ -32,6 +32,32 @@ EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 MAILGUN_API_KEY = env_value('mailgun_api_key')
 USE_L10N = True
 
+ACCESS_CONTROL_ALLOW_HEADERS = [
+    'Accept',
+    'Content-Type',
+    'Authorization',
+]
+
+ANYMAIL = {
+    'MAILGUN_API_KEY': MAILGUN_API_KEY,
+    'MAILGUN_SENDER_DOMAIN': 'metanic.local',
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgiref.inmemory.ChannelLayer',
+        'ROUTING': 'metanic.realtime.routing.routes',
+    }
+}
+
+COLLECTION_SERIALIZER_TYPES = {
+    'post': ('metanic.posts.api.serializers', 'PostSerializer'),
+}
+
+CORS_ALLOWED_ORIGINS = [
+    'https://metanic.org',
+]
+
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +82,8 @@ INSTALLED_APPS = [
 # additional functionality without forking Metanic.
 ] + list(filter(None, env_value('plugin_modules', default='').split(',')))
 
+INTERNAL_IPS = []
+
 MIDDLEWARE = [
     'metanic.core.middleware.CORSMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,27 +94,6 @@ MIDDLEWARE = [
     'metanic.core.middleware.HSTSMiddleware',
     'metanic.core.middleware.AuthenticationHeadersMiddleware',
 ]
-
-TEMPLATES = [
-    {
-        'APP_DIRS': True,
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'OPTIONS': {
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'metanic.core.context_processors.frontend_url',
-            ],
-        }
-    },
-]
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'asgiref.inmemory.ChannelLayer',
-        'ROUTING': 'metanic.realtime.routing.routes',
-    }
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -107,23 +114,16 @@ REST_FRAMEWORK = {
     },
 }
 
-ANYMAIL = {
-    'MAILGUN_API_KEY': MAILGUN_API_KEY,
-    'MAILGUN_SENDER_DOMAIN': 'metanic.local',
-}
-
-COLLECTION_SERIALIZER_TYPES = {
-    'post': ('metanic.posts.api.serializers', 'PostSerializer'),
-}
-
-ACCESS_CONTROL_ALLOW_HEADERS = [
-    'Accept',
-    'Content-Type',
-    'Authorization',
+TEMPLATES = [
+    {
+        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'metanic.core.context_processors.frontend_url',
+            ],
+        }
+    },
 ]
-
-CORS_ALLOWED_ORIGINS = [
-    'https://metanic.org',
-]
-
-INTERNAL_IPS = []
