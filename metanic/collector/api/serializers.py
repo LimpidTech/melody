@@ -38,11 +38,12 @@ class CollectionSerializer(serializers.Serializer):
     items = serializers.SerializerMethodField()
 
     def get_items(self, collection):
-        return list(map(
-            get_serializer_data,
-            [self.context],
-            collection.items(self.context['request']),
-        ))
+        results = []
+
+        for item in collection.items(self.context['request']):
+            results.append(get_serializer_data(self.context, item))
+
+        return results
 
     def get_name(self, collection_item):
         collection_name_field = getattr(
