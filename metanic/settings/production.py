@@ -25,6 +25,9 @@ SECRET_KEY = env_value('secret_key')
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = env_value('static_url')
 
+MAILGUN_API_KEY = env_value('mailgun_api_key')
+ANYMAIL['MAILGUN_API_KEY'] = MAILGUN_API_KEY
+
 ACCESS_CONTROL_ALLOW_ORIGINS = [
     'metanic.org',
 ]

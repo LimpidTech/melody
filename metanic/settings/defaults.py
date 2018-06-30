@@ -29,7 +29,6 @@ AUTH_USER_MODEL = 'accounts.User'
 DATE_FORMAT = 'Y-m-d'
 DEFAULT_FROM_EMAIL = 'services@metanic.monokro.me'
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-MAILGUN_API_KEY = env_value('mailgun_api_key')
 USE_L10N = True
 
 ACCESS_CONTROL_ALLOW_HEADERS = [
@@ -43,7 +42,6 @@ ACCESS_CONTROL_ALLOW_ORIGINS = [
 ]
 
 ANYMAIL = {
-    'MAILGUN_API_KEY': MAILGUN_API_KEY,
     'MAILGUN_SENDER_DOMAIN': 'metanic.local',
 }
 

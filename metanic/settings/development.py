@@ -19,6 +19,8 @@ ROOT_URLCONF = 'metanic.core.urls.development'
 STATIC_ROOT = project_path('static')
 STATIC_URL = '/static/'
 
+MAILGUN_API_KEY = env_value('mailgun_api_key', default='TEST')
+ANYMAIL['MAILGUN_API_KEY'] = MAILGUN_API_KEY
 
 SECRET_KEY = env_value(
     'secret_key',
