@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
@@ -93,6 +94,7 @@ INSTALLED_APPS = [
     'metanic.mail',
     'metanic.posts',
     'metanic.realtime',
+    'metanic.multisite',
 
 # This lets you add METANIC_PLUGIN_MODULES to your environment to add
 # additional functionality without forking Metanic.
@@ -101,6 +103,7 @@ INSTALLED_APPS = [
 INTERNAL_IPS = []
 
 MIDDLEWARE = [
+    'metanic.core.middleware.MultiSiteMiddleware',
     'metanic.core.middleware.CORSMiddleware',
 
     'django.middleware.csrf.CsrfViewMiddleware',

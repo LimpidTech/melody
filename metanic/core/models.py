@@ -2,14 +2,13 @@ import uuid
 
 from django.db import models
 
+
 # Using `import *` here to inherit the entire Django Model interface
 from django.db.models import *  # noqa
 
 
 class Model(models.Model):
-    """ By default, our Models don't have IDs because they're often unnecessary.
-
-    """
+    """ By default, our Models don't have IDs because they're often unnecessary. """
 
     id = None
 
@@ -29,7 +28,16 @@ class UUIDModel(models.Model):
         return str(self.pk)
 
 
-class CreateUpdateModel(UUIDModel):
+class MultiSiteModel(UUIDModel):
+    """ Provides a Model where records exist on a per-site basis. """
+
+    sites = models.ManyToManyField('sites.Site')
+
+    class Meta(UUIDModel.Meta):
+        abstract = True
+
+
+class CreateUpdateModel(Model):
     """ Model providing UUIDs and create/update timings. """
 
     created = models.DateTimeField(auto_now_add=True, editable=False)

@@ -7,7 +7,7 @@ from metanic.accounts import models as accounts_models
 from metanic.posts import renderer
 
 
-class Post(renderer.Renderable, models.CreateUpdateModel):
+class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel):
     subject = models.TextField()
     body = models.TextField()
 
@@ -38,7 +38,7 @@ class History(models.CreateUpdateModel):
 
 
 @interface.implementer(collection.ICollection)
-class Topic(models.CreateUpdateModel):
+class Topic(models.MultiSiteModel, models.CreateUpdateModel):
     name = models.TextField(unique=True)
 
     posts = models.ManyToManyField(
