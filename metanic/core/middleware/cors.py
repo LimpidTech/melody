@@ -19,11 +19,14 @@ ACCESS_CONTROL_ALLOW_METHODS = set(map(str.upper, getattr(
     ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 )))
 
+ACCESS_CONTROL_EXPOSE_HEADERS = set(getattr(settings, 'ACCESS_CONTROL_EXPOSE_HEADERS', []))
+
 HTTP_ORIGIN = 'HTTP_ORIGIN'
 HTTP_ACR_METHOD = 'HTTP_ACCESS_CONTROL_REQUEST_METHOD'
 
-# This is here so that we only process the value once instead of for every request
-ACCESS_CONTROL_ALLOW_METHODS_VALUE = ','.join(ACCESS_CONTROL_ALLOW_METHODS)
+# This is here so that we only process the values once instead of for every request
+ACCESS_CONTROL_ALLOW_METHODS_VALUE = ', '.join(ACCESS_CONTROL_ALLOW_METHODS)
+ACCESS_CONTROL_EXPOSE_HEADERS_VALUE = ', '.join(ACCESS_CONTROL_EXPOSE_HEADERS)
 
 def match(pattern, origin):
     origin_length = len(origin)
@@ -96,6 +99,7 @@ class CORSMiddleware(object):
 
         if request.method != 'OPTIONS':
             response['Access-Control-Allow-Headers'] = ACCESS_CONTROL_ALLOW_HEADERS
+            response['Access-Control-Expose-Headers'] = ACCESS_CONTROL_EXPOSE_HEADERS_VALUE
             return response
 
         # At this point, we know that we have a pre-flight request

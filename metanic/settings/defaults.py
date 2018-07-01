@@ -39,6 +39,13 @@ ACCESS_CONTROL_ALLOW_HEADERS = [
     'Cookie',
 ]
 
+ACCESS_CONTROL_EXPOSE_HEADERS = [
+    # Authentication headers
+    'X-Metanic-IsAuthenticated',
+    'X-Metanic-Username',
+    'X-Metanic-Identifier',
+]
+
 ACCESS_CONTROL_ALLOW_ORIGINS = [
     'https://metanic.org',
 ]
