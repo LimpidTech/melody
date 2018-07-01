@@ -1,3 +1,4 @@
+import datetime
 import os
 import urllib
 
@@ -35,6 +36,7 @@ ACCESS_CONTROL_ALLOW_HEADERS = [
     'Accept',
     'Authorization',
     'Content-Type',
+    'Cookie',
 ]
 
 ACCESS_CONTROL_ALLOW_ORIGINS = [
@@ -55,6 +57,15 @@ CHANNEL_LAYERS = {
 COLLECTION_SERIALIZER_TYPES = {
     'post': ('metanic.posts.api.serializers', 'PostSerializer'),
 }
+
+PLUGIN_MODULES = env_value('plugin_modules', default='')
+
+if PLUGIN_MODULES == 'auto':
+    # TODO: Automatically detect plugins based on module names.
+    PLUGIN_MODULES = []
+
+else:
+    PLUGIN_MODULES = list(filter(None, PLUGIN_MODULES.split(',')))
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -78,7 +89,7 @@ INSTALLED_APPS = [
 
 # This lets you add METANIC_PLUGIN_MODULES to your environment to add
 # additional functionality without forking Metanic.
-] + list(filter(None, env_value('plugin_modules', default='').split(',')))
+] + PLUGIN_MODULES
 
 INTERNAL_IPS = []
 
@@ -102,10 +113,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
+
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle',
     ],
+
     'DEFAULT_THROTTLE_RATES': {
         'anon': env_value('anon_throttle_rate', default='1000/second'),
         'sensitive': env_value('sensitive_throttle_rate', default='3/second'),
@@ -126,3 +139,7 @@ TEMPLATES = [
         }
     },
 ]
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=14),
+}
