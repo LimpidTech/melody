@@ -24,6 +24,8 @@ class AuthenticationHeadersMiddleware(object):
         if request.method == 'OPTIONS':
             return response
 
+        # Need to update request.user here, but django-restframework-jwt doesn't
+        # do this for us. Yay! :'(
         if request.user.is_authenticated:
             response['X-Metanic-Identifier'] = urls.reverse('user-detail', kwargs={
                 'pk': request.user.pk,

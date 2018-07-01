@@ -1,6 +1,6 @@
 from django import urls
 
-from rest_framework_jwt import views
+from metanic.rest import views
 
 from . import routing
 
