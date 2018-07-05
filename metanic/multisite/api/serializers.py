@@ -9,5 +9,6 @@ class SiteSerializer(serializers.HyperlinkedModelSerializer):
         model = models.Site
 
         fields = (
+            'name',
             'domain',
         )

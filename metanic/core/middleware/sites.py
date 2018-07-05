@@ -22,8 +22,9 @@ class MultiSiteMiddleware(object):
         # NOTE: This should probably be optional, since it could allow
         #       for some dangerous DDoS action if the previous comment(s)
         #       were to be ignored.
-        site = models.Site.objects.get_or_create(domain=hostname)
+        site, _ = models.Site.objects.get_or_create(domain=hostname)
 
+        request.site = site
         response = self.get_response(request)
 
         return response
