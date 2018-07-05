@@ -5,18 +5,19 @@ from metanic.accounts import api
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
-    author = api.serializers.AuthenticationSerializer()
+    author = api.serializers.AuthenticationSerializer(
+        default=serializers.CurrentUserDefault(),
+    )
 
     class Meta(object):
         model = models.Post
-        depth = 2
+        deth = 2
 
         fields = (
             'url',
             'body',
             'html',
             'subject',
-            'topics',
             'author',
             'created',
             'last_modified',

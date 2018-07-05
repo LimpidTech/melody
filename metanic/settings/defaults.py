@@ -117,6 +117,7 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'metanic.accounts.authentication.CSRFExemptAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 
