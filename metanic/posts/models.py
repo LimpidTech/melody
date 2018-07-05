@@ -7,9 +7,57 @@ from metanic.accounts import models as accounts_models
 from metanic.posts import renderer
 
 
+@interface.implementer(collection.ICollection)
+class Topic(models.CreateUpdateModel):
+    name = models.TextField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower().strip()
+        return super(Topic, self).save(*args, **kwargs)
+
+    class Meta(models.CreateUpdateModel.Meta):
+        verbose_name_plural = 'topics'
+
+
+class Category(Topic):
+    class Meta(models.CreateUpdateModel.Meta):
+        verbose_name_plural = 'categories'
+
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    def save(self, *args, **kwargs):
+        # Prevents user interface issues causing infinite recursion
+        if self.parent == self:
+            self.parent = None
+
+        return super(Category, self).save(*args, **kwargs)
+
+
 class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel):
     subject = models.TextField()
     body = models.TextField()
+
+    topics = models.ManyToManyField(
+        Topic,
+        related_name='posts',
+        blank=True,
+        editable=False,
+    )
+
+    categories = models.ManyToManyField(
+        Category,
+        related_name='categories',
+        blank=True,
+        editable=False,
+    )
 
     author = models.ForeignKey(
         accounts_models.User,
@@ -35,43 +83,3 @@ class History(models.CreateUpdateModel):
         related_name='history',
         on_delete=models.PROTECT,
     )
-
-
-@interface.implementer(collection.ICollection)
-class Topic(models.CreateUpdateModel):
-    name = models.TextField(unique=True)
-
-    posts = models.ManyToManyField(
-        Post,
-        related_name='topics',
-        blank=True,
-        editable=False,
-    )
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        self.name = self.name.lower().strip()
-        return super(Topic, self).save(*args, **kwargs)
-
-    class Meta(models.CreateUpdateModel.Meta):
-        verbose_name_plural = 'topics'
-
-
-class Category(Topic):
-    class Meta(models.CreateUpdateModel.Meta):
-        verbose_name_plural = 'categories'
-
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
-    def save(self, *args, **kwargs):
-        if self.parent == self:
-            self.parent = None
-
-        return super(Category, self).save(*args, **kwargs)
