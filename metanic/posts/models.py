@@ -38,7 +38,7 @@ class History(models.CreateUpdateModel):
 
 
 @interface.implementer(collection.ICollection)
-class Topic(models.MultiSiteModel, models.CreateUpdateModel):
+class Topic(models.CreateUpdateModel):
     name = models.TextField(unique=True)
 
     posts = models.ManyToManyField(
