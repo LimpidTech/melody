@@ -45,4 +45,8 @@ class CreateUpdateModel(Model):
 
     class Meta(UUIDModel.Meta):
         abstract = True
-        ordering = ('-last_modified', '-created')
+
+        ordering = (
+            'created',
+            '-last_modified',
+        )
