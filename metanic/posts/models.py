@@ -1,3 +1,5 @@
+from django.utils import text
+
 from zope import interface
 
 from metanic.core import models
@@ -7,19 +9,48 @@ from metanic.accounts import models as accounts_models
 from metanic.posts import renderer
 
 
+class PostTopic(models.Model):
+    post_id = models.ForeignKey(
+        'posts.Post',
+        db_index=True,
+        on_delete=models.DO_NOTHING,
+    )
+
+    topic_id = models.ForeignKey(
+        'posts.Topic',
+        db_index=True,
+        on_delete=models.DO_NOTHING,
+    )
+
+
+class PostCategory(models.Model):
+    post_id = models.ForeignKey('posts.Post', on_delete=models.DO_NOTHING)
+    category_id = models.ForeignKey('posts.Category', on_delete=models.DO_NOTHING)
+
+
 @interface.implementer(collection.ICollection)
 class Topic(models.CreateUpdateModel):
-    name = models.TextField(unique=True, primary_key=True)
+    class Meta(models.CreateUpdateModel.Meta):
+        verbose_name_plural = 'topics'
+
+    id = None
+
+    name = models.TextField(unique=True)
+    slug = models.SlugField(primary_key=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         self.name = self.name.lower().strip()
-        return super(Topic, self).save(*args, **kwargs)
 
-    class Meta(models.CreateUpdateModel.Meta):
-        verbose_name_plural = 'topics'
+        if not self.slug:
+            self.slug = text.slugify(
+                self.name,
+                allow_unicode=True,
+            )
+
+        return super(Topic, self).save(*args, **kwargs)
 
 
 class Category(Topic):
@@ -50,13 +81,18 @@ class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel)
     subject = models.TextField()
     body = models.TextField()
 
-    pinned_order = models.PositiveIntegerField(null=True, default=None)
+    pinned_order = models.PositiveIntegerField(
+        default=None,
+        null=True,
+        blank=True,
+    )
 
     topics = models.ManyToManyField(
         Topic,
         related_name='posts',
         blank=True,
         editable=False,
+        through=PostTopic,
     )
 
     categories = models.ManyToManyField(
@@ -64,6 +100,7 @@ class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel)
         related_name='categories',
         blank=True,
         editable=False,
+        through=PostCategory,
     )
 
     author = models.ForeignKey(
