@@ -36,7 +36,12 @@ class Topic(models.CreateUpdateModel):
     id = None
 
     name = models.TextField(unique=True)
-    slug = models.SlugField(primary_key=True, blank=True)
+
+    slug = models.SlugField(
+        primary_key=True,
+        blank=True,
+        editable=False,
+    )
 
     def __str__(self):
         return self.name
