@@ -9,7 +9,7 @@ from metanic.posts import renderer
 
 @interface.implementer(collection.ICollection)
 class Topic(models.CreateUpdateModel):
-    name = models.TextField(unique=True)
+    name = models.TextField(unique=True, primary_key=True)
 
     def __str__(self):
         return self.name

@@ -9,7 +9,7 @@ class PostInline(admin.StackedInline):
 
 
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('name', 'last_modified', 'created', 'id')
+    list_display = ('name', 'last_modified', 'created')
     list_display_links = ('name',)
 
     list_filter = ('created', 'last_modified')
