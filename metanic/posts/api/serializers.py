@@ -1,10 +1,10 @@
 from metanic.accounts import api
 from metanic.multisite.api import serializers as multisite_serializers
-from metanic.core import serializers
+from metanic.rest import serializers
 from metanic.posts import models
 
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class PostSerializer(serializers.MetanicModelSerializer):
     author = api.serializers.AuthenticationSerializer(
         default=serializers.CurrentUserDefault(),
     )
@@ -34,13 +34,18 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
         fields = (
             'url',
-            'body',
-            'html',
+            'local_reference',
+
             'subject',
-            'sites',
+            'html',
+            'body',
+
             'author',
+
             'created',
             'last_modified',
+
+            'sites',
         )
 
 

@@ -1,9 +1,9 @@
-from rest_framework import serializers
+from metanic.rest import serializers
 
 from metanic.accounts import models
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.MetanicModelSerializer):
     email = serializers.EmailField()
 
     # TODO: When we write unit tests, ensure that these are write_only in specific tests.
@@ -25,6 +25,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         fields = (
             'url',
+            'local_reference',
             'username',
             'email',
             'password',
