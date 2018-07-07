@@ -42,8 +42,15 @@ class Category(Topic):
 
 
 class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel):
+    class Meta(models.CreateUpdateModel.Meta):
+        ordering = (
+            '-pinned_order',
+        ) + models.CreateUpdateModel.Meta.ordering
+
     subject = models.TextField()
     body = models.TextField()
+
+    pinned_order = models.PositiveIntegerField(null=True, default=None)
 
     topics = models.ManyToManyField(
         Topic,
