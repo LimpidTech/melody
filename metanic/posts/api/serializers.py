@@ -18,7 +18,7 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
 
     def run_validation(self, data=serializers.empty):
         topics = data.get('topics', [])
-
+        
         if isinstance(topics, str):
             data['topics'] = []
             
@@ -87,4 +87,5 @@ class TopicSerializer(serializers.MetanicModelSerializer):
 
 
 class PostSerializer(BasePostSerializer):
-    topics = TopicSerializer(many=True)
+    # TODO: Fix saving topics (nested modelds w/ hyperlinked URLs seem broken)
+    topics = TopicSerializer(many=True, read_only=True)
