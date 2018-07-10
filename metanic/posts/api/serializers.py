@@ -4,8 +4,10 @@ from metanic.rest import serializers
 from metanic.posts import models
 
 
-class PostSerializer(serializers.MetanicModelSerializer):
-    author = api.serializers.AuthenticationSerializer(
+class BasePostSerializer(serializers.MetanicModelSerializer):
+    """ This needs to exist so that Topic and Post can reference eachother. """
+
+    author = api.serializers.UserSerializer(
         default=serializers.CurrentUserDefault(),
     )
 
@@ -14,9 +16,23 @@ class PostSerializer(serializers.MetanicModelSerializer):
         read_only=True,
     )
 
+    def run_validation(self, data=serializers.empty):
+        topics = data.get('topics', [])
+
+        if isinstance(topics, str):
+            data['topics'] = []
+            
+            for topic in models.Topic.objects.having_names(topics, create_missing=True):
+                data['topics'].append(TopicSerializer(
+                    topic,
+                    context=self.context,
+                ).data)
+
+        return super(BasePostSerializer, self).run_validation(data=data)
+
     def save(self):
         request = self.context['request']
-        instance = super(PostSerializer, self).save()
+        instance = super(BasePostSerializer, self).save()
 
         # TODO: Although not using a "count" here to prevent a query,
         #       I think that calling all() will perform one anyway. We
@@ -46,18 +62,29 @@ class PostSerializer(serializers.MetanicModelSerializer):
             'last_modified',
 
             'sites',
+            'topics',
         )
 
 
-class TopicSerializer(serializers.HyperlinkedModelSerializer):
+# TODO: Figure out how to have Topic <--> Post happily
+class TopicSerializer(serializers.MetanicModelSerializer):
+    posts = BasePostSerializer(many=True, read_only=True)
+
     class Meta(object):
         model = models.Topic
         depth = 2
 
         fields = (
             'url',
+            'local_reference',
+
             'name',
             'posts',
+
             'created',
             'last_modified',
         )
+
+
+class PostSerializer(BasePostSerializer):
+    topics = TopicSerializer(many=True)

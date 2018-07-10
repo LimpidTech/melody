@@ -20,5 +20,13 @@ class CurrentSiteDefault(object):
 class MetanicModelSerializer(HyperlinkedModelSerializer):
     local_reference = SerializerMethodField()
 
+    def get_extended_fields(self):
+        return {}
+
+    def get_fields(self):
+        fields = super(MetanicModelSerializer, self).get_fields()
+        fields.update(self.get_extended_fields())
+        return fields
+
     def get_local_reference(self, instance):
         return getattr(instance, 'pk')

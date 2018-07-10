@@ -6,6 +6,7 @@ from metanic.core import models
 from metanic.collector import collection
 
 from metanic.accounts import models as accounts_models
+from metanic.posts import managers
 from metanic.posts import renderer
 
 
@@ -13,13 +14,13 @@ class PostTopic(models.Model):
     post_id = models.ForeignKey(
         'posts.Post',
         db_index=True,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
     )
 
     topic_id = models.ForeignKey(
         'posts.Topic',
         db_index=True,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
     )
 
 
@@ -43,10 +44,12 @@ class Topic(models.CreateUpdateModel):
         editable=False,
     )
 
+    objects = managers.TopicManager()
+
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
+    def prepare_for_save(self):
         self.name = self.name.lower().strip()
 
         if not self.slug:
@@ -55,6 +58,8 @@ class Topic(models.CreateUpdateModel):
                 allow_unicode=True,
             )
 
+    def save(self, *args, **kwargs):
+        self.prepare_for_save()
         return super(Topic, self).save(*args, **kwargs)
 
 

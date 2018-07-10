@@ -13,7 +13,10 @@ class UserSerializer(serializers.MetanicModelSerializer):
     username = serializers.CharField()
 
     def validate(self, data):
-        if data['password'] != data['password_verification']:
+        password = data['password']
+        password_verification = data['password_verification']
+
+        if password and password != password_verification:
             return serializers.ValidationError(
                 "The verification password must be the same as the password."
             )
