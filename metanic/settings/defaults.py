@@ -55,16 +55,19 @@ ANYMAIL = {
 }
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'asgiref.inmemory.ChannelLayer',
-        'ROUTING': 'metanic.realtime.routing.routes',
-    }
+    'default':
+        {
+            'BACKEND': 'asgiref.inmemory.ChannelLayer',
+            'ROUTING': 'metanic.realtime.routing.routes',
+        }
 }
 
 COLLECTION_SERIALIZER_TYPES = {
     'post': ('metanic.posts.api.serializers', 'PostSerializer'),
 }
 
+# This lets you add METANIC_PLUGIN_MODULES to your environment to add
+# additional functionality without forking Metanic.
 PLUGIN_MODULES = env_value('plugin_modules', default='')
 
 if PLUGIN_MODULES == 'auto':
@@ -82,12 +85,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-
     'anymail',
     'channels',
     'raven.contrib.django.raven_compat',
     'rest_framework',
-
     'metanic.accounts',
     'metanic.collector',
     'metanic.core',
@@ -95,9 +96,6 @@ INSTALLED_APPS = [
     'metanic.posts',
     'metanic.realtime',
     'metanic.multisite',
-
-# This lets you add METANIC_PLUGIN_MODULES to your environment to add
-# additional functionality without forking Metanic.
 ] + PLUGIN_MODULES
 
 INTERNAL_IPS = []
@@ -105,12 +103,10 @@ INTERNAL_IPS = []
 MIDDLEWARE = [
     'metanic.core.middleware.MultiSiteMiddleware',
     'metanic.core.middleware.CORSMiddleware',
-
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
     'metanic.core.middleware.HSTSMiddleware',
     'metanic.core.middleware.AuthenticationHeadersMiddleware',
 ]
@@ -141,16 +137,26 @@ TEMPLATES = [
     {
         'APP_DIRS': True,
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'OPTIONS': {
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'metanic.core.context_processors.frontend_url',
-            ],
-        }
+        'OPTIONS':
+            {
+                'context_processors':
+                    [
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                        'metanic.core.context_processors.frontend_url',
+                    ],
+            }
     },
 ]
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=14),
+}
+
+CHANNEL_LAYERS = {
+    'default':
+        {
+            'BACKEND': 'asgiref.inmemory.ChannelLayer',
+            'ROUTING': 'metanic.realtime.routing.routes',
+        }
 }
