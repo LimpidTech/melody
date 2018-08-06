@@ -47,7 +47,7 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
 
         return instance
 
-    class Meta(object):
+    class Meta(serializers.MetanicModelSerializer.Meta):
         model = models.Post
         depth = 2
 
@@ -71,7 +71,7 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
 class TopicSerializer(serializers.MetanicModelSerializer):
     posts = BasePostSerializer(many=True, read_only=True)
 
-    class Meta(object):
+    class Meta(serializers.MetanicModelSerializer.Meta):
         model = models.Topic
         depth = 2
 

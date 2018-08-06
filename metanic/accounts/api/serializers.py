@@ -23,7 +23,7 @@ class UserSerializer(serializers.MetanicModelSerializer):
 
         return super(UserSerializer, self).validate(data)
 
-    class Meta(object):
+    class Meta(serializers.MetanicModelSerializer.Meta):
         model = models.User
 
         fields = (
