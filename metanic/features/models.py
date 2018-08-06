@@ -7,7 +7,7 @@ class Feature(models.CreateUpdateModel):
     """ Defines a specific feature implemented by Metanic. """
 
     name = models.CharField(max_length=32)
-    identifier = models.SlugField(blank=True)
+    identifier = models.SlugField(blank=True, unique=True)
 
     def save(self, *args, **kwargs):
         if not self.identifier:
