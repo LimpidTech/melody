@@ -102,11 +102,12 @@ INSTALLED_APPS = [
 INTERNAL_IPS = []
 
 MIDDLEWARE = [
-    'metanic.core.middleware.MultiSiteMiddleware',
     'metanic.core.middleware.CORSMiddleware',
+    'metanic.core.middleware.MultiSiteMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'metanic.features.middleware.SiteFeaturesMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'metanic.core.middleware.HSTSMiddleware',
     'metanic.core.middleware.AuthenticationHeadersMiddleware',

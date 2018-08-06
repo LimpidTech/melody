@@ -1,6 +1,7 @@
 from django.utils import text
 
 from metanic.core import models
+from metanic.features import managers
 
 
 class Feature(models.CreateUpdateModel):
@@ -20,7 +21,7 @@ class Feature(models.CreateUpdateModel):
 
 
 class FeatureValue(models.CreateUpdateModel):
-    pass
+    objects = managers.FeatureValueManager()
 
 
 class BooleanFeatureValue(FeatureValue):
@@ -51,3 +52,5 @@ class FeatureUsage(models.MultiSiteModel, models.CreateUpdateModel):
         db_index=True,
         on_delete=models.CASCADE,
     )
+
+    objects = managers.FeatureUsageManager()
