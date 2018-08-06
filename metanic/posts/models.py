@@ -130,6 +130,9 @@ class Post(renderer.Renderable, models.MultiSiteModel,
         related_name='replies',
     )
 
+    def is_pinned(self):
+        return self.pinned_order is not None
+
     def __str__(self):
         return self.subject
 

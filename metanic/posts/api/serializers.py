@@ -18,15 +18,18 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
 
     def run_validation(self, data=serializers.empty):
         topics = data.get('topics', [])
-        
+
         if isinstance(topics, str):
             data['topics'] = []
-            
-            for topic in models.Topic.objects.having_names(topics, create_missing=True):
-                data['topics'].append(TopicSerializer(
-                    topic,
-                    context=self.context,
-                ).data)
+
+            for topic in models.Topic.objects.having_names(
+                    topics, create_missing=True):
+                data['topics'].append(
+                    TopicSerializer(
+                        topic,
+                        context=self.context,
+                    ).data
+                )
 
         return super(BasePostSerializer, self).run_validation(data=data)
 
@@ -38,7 +41,7 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
         #       I think that calling all() will perform one anyway. We
         #       need to make sure that this is already materialized in
         #       the instance before this is called.
-    
+
         if not len(instance.sites.all()):
             instance.sites.add(request.site)
 
@@ -51,18 +54,15 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
         fields = (
             'url',
             'local_reference',
-
             'subject',
             'html',
             'body',
-
             'author',
-
             'created',
             'last_modified',
-
             'sites',
             'topics',
+            'is_pinned',
         )
 
 
@@ -77,10 +77,8 @@ class TopicSerializer(serializers.MetanicModelSerializer):
         fields = (
             'url',
             'local_reference',
-
             'name',
             'posts',
-
             'created',
             'last_modified',
         )
