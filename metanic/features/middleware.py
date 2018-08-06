@@ -41,6 +41,4 @@ class SiteFeaturesMiddleware(object):
             )
         )
 
-        print(request.features)
-
         return self.get_response(request)
