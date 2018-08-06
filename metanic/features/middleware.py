@@ -6,7 +6,15 @@ from metanic.features import models
 
 
 def get_feature_usage(usages):
-    return {usage.feature.identifier: usage.value for usage in usages}
+    features = {}
+
+    for usage in usages:
+        value = usage.value.value
+
+        if value:
+            features[usage.feature.identifier] = value
+
+    return features
 
 
 class SiteFeaturesMiddleware(object):
