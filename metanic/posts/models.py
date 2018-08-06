@@ -88,7 +88,7 @@ class Post(renderer.Renderable, models.MultiSiteModel,
            models.CreateUpdateModel):
     class Meta(models.CreateUpdateModel.Meta):
         ordering = (
-            '-pinned_order',
+            'pinned_order',
             '-created',
             '-last_modified',
         )
