@@ -86,5 +86,6 @@ class TopicSerializer(serializers.MetanicModelSerializer):
 
 
 class PostSerializer(BasePostSerializer):
-    # TODO: Fix saving topics (nested modelds w/ hyperlinked URLs seem broken)
+    # TODO: Fix saving topics (nested models w/ hyperlinked URLs seem broken)
+
     topics = TopicSerializer(many=True, read_only=True)
