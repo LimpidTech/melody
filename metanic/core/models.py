@@ -2,7 +2,6 @@ import uuid
 
 from django.db import models
 
-
 # Using `import *` here to inherit the entire Django Model interface
 from django.db.models import *  # noqa
 
