@@ -25,7 +25,11 @@ class PostTopic(models.Model):
 
 
 class PostCategory(models.Model):
-    post_id = models.ForeignKey('posts.Post', on_delete=models.DO_NOTHING)
+    post_id = models.ForeignKey(
+        'posts.Post',
+        on_delete=models.DO_NOTHING,
+    )
+
     category_id = models.ForeignKey(
         'posts.Category', on_delete=models.DO_NOTHING
     )
