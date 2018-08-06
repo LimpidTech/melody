@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'metanic.accounts',
     'metanic.collector',
     'metanic.core',
+    'metanic.features',
     'metanic.mail',
     'metanic.posts',
     'metanic.realtime',
@@ -112,25 +113,27 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'metanic.accounts.authentication.CSRFExemptAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
-
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle',
-    ],
-
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': env_value('anon_throttle_rate', default='1000/second'),
-        'sensitive': env_value('sensitive_throttle_rate', default='3/second'),
-        'user': env_value('user_throttle_rate', default='10000/second'),
-    },
+    'DEFAULT_AUTHENTICATION_CLASSES':
+        (
+            'metanic.accounts.authentication.CSRFExemptAuthentication',
+            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        ),
+    'DEFAULT_PERMISSION_CLASSES':
+        ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',],
+    'DEFAULT_THROTTLE_CLASSES':
+        [
+            'rest_framework.throttling.AnonRateThrottle',
+            'rest_framework.throttling.UserRateThrottle',
+        ],
+    'DEFAULT_THROTTLE_RATES':
+        {
+            'anon':
+                env_value('anon_throttle_rate', default='1000/second'),
+            'sensitive':
+                env_value('sensitive_throttle_rate', default='3/second'),
+            'user':
+                env_value('user_throttle_rate', default='10000/second'),
+        },
 }
 
 TEMPLATES = [
