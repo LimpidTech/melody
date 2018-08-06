@@ -47,5 +47,5 @@ class CreateUpdateModel(Model):
 
         ordering = (
             'created',
-            '-last_modified',
+            'last_modified',
         )

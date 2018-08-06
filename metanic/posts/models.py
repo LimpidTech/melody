@@ -87,7 +87,11 @@ class Category(Topic):
 class Post(renderer.Renderable, models.MultiSiteModel,
            models.CreateUpdateModel):
     class Meta(models.CreateUpdateModel.Meta):
-        ordering = ('-pinned_order',) + models.CreateUpdateModel.Meta.ordering
+        ordering = (
+            '-pinned_order',
+            '-created',
+            '-last_modified',
+        )
 
     subject = models.TextField()
 
