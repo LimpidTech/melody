@@ -57,6 +57,7 @@ class BasePostSerializer(serializers.MetanicModelSerializer):
             'subject',
             'html',
             'body',
+            'summary',
             'author',
             'created',
             'last_modified',
