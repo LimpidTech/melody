@@ -15,6 +15,9 @@ class Feature(models.CreateUpdateModel):
 
         return super(Feature, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 
 class FeatureValue(models.CreateUpdateModel):
     pass
