@@ -3,17 +3,40 @@ from metanic.rest import serializers
 from metanic.features import models
 
 
-class FeatureUsageSerializer(serializers.MetanicModelSerializer):
+class FeatureValueSerializer(serializers.MetanicModelSerializer):
     class Meta(serializers.MetanicModelSerializer.Meta):
-        model = models.FeatureUsage
+        # TODO: Support polymorphic Model instances as provided
+        model = models.FeatureValue
+
         fields = (
             'url',
+            'local_reference',
+            'value',
+        )
+
+
+class FeatureSerializer(serializers.MetanicModelSerializer):
+    class Meta(serializers.MetanicModelSerializer.Meta):
+        model = models.Feature
+
+        fields = (
+            'url',
+            'local_reference',
             'name',
-            'slug',
+            'identifier',
         )
 
 
 class FeatureUsageSerializer(serializers.MetanicModelSerializer):
+    feature = FeatureSerializer()
+
     class Meta(serializers.MetanicModelSerializer.Meta):
         model = models.FeatureUsage
-        fields = ('url',)
+
+        depth = 1
+
+        fields = (
+            'url',
+            'local_reference',
+            'feature',
+        )

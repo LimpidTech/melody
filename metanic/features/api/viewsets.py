@@ -4,16 +4,26 @@ from metanic.features import models
 from metanic.features.api import serializers
 
 
+class FeatureViewSet(viewsets.MetanicModelViewSet):
+    serializer_class = serializers.FeatureSerializer
+    queryset = models.Feature.objects
+
+
+class FeatureValueViewSet(viewsets.MetanicModelViewSet):
+    serializer_class = serializers.FeatureValueSerializer
+
+    def get_queryset(self):
+        return models.FeatureValue.objects.provided_by(
+            site=self.request.site,
+            user=self.request.user,
+        )
+
+
 class FeatureUsageViewSet(viewsets.MetanicModelViewSet):
     serializer_class = serializers.FeatureUsageSerializer
 
-    queryset = models.FeatureUsage.objects             \
-                     .with_related_subclasses('value') \
-                     .select_related('feature')
-
-
-class FeatureViewSet(viewsets.MetanicModelViewSet):
-    serializer_class = serializers.FeatureUsageSerializer
-
-    queryset = models.Feature.objects                  \
-                     .select_related('feature')
+    def get_queryset(self):
+        return models.FeatureUsage.objects.provided_by(
+            site=self.request.site,
+            user=self.request.user,
+        )

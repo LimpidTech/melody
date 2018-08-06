@@ -25,8 +25,14 @@ class Feature(models.CreateUpdateModel):
         return self.name
 
 
-class FeatureValue(models.CreateUpdateModel):
+class FeatureValue(models.CreateUpdateModel, models.UUIDModel):
     objects = managers.FeatureValueManager()
+
+    def __str__(self):
+        if not hasattr(self, 'value'):
+            return 'Unknown Feature Value: {}'.format(self.id,)
+
+        return self.value
 
 
 class BooleanFeatureValue(FeatureValue):
@@ -41,7 +47,7 @@ class NumericFeatureValue(FeatureValue):
     value = models.DecimalField(max_digits=11, decimal_places=3)
 
 
-class FeatureUsage(models.MultiSiteModel, models.CreateUpdateModel):
+class FeatureUsage(models.CreateUpdateModel, models.MultiSiteModel):
     """ Defines a specific way that a feature is being used. """
 
     feature = models.ForeignKey(
