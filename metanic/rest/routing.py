@@ -1,4 +1,5 @@
 import importlib
+import logging
 import random
 import string
 
@@ -10,6 +11,8 @@ from metanic.rest import routing
 API_CLASS_SUFFIXES = ['ViewSet']
 
 INSTALLED_APPS = settings.INSTALLED_APPS
+
+logger = logging.getLogger(__name__)
 
 
 def camel_case_to_snake_case(name):
@@ -38,7 +41,15 @@ def import_service_module(app):
 def register_viewsets(module):
     for attribute_name in dir(module):
         for suffix in API_CLASS_SUFFIXES:
-            if attribute_name.endswith(suffix):
+            if attribute_name.lower().endswith(suffix.lower()):
+                if not attribute_name.endswith(suffix):
+                    logger.warning(
+                        '{} has unexpected casing. Expected: {}'.format(
+                            attribute_name,
+                            attribute_name[:-len(suffix)] + suffix,
+                        )
+                    )
+
                 url_name = attribute_name[:len(attribute_name) - len(suffix)]
                 snake_case_url_name = camel_case_to_snake_case(url_name)
                 base_name = snake_case_url_name.replace('_', '-').lower()
@@ -49,7 +60,7 @@ def register_viewsets(module):
                 routing.router.register(
                     snake_case_url_name,
                     getattr(module, attribute_name),
-                    base_name=base_name,
+                    base_name=snake_case_url_name.replace('_', ''),
                 )
 
 
