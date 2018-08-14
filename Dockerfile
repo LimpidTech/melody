@@ -1,19 +1,23 @@
-FROM voidlinux/voidlinux
-MAINTAINER Bailey "monokrome" Stoner <monokrome@monokro.me>
+FROM alpine
+MAINTAINER Bailey "monokrome" Stoner <polar@metanic.org>
 
-RUN xbps-install -y -Su
-RUN xbps-install -y -S zsh vim
-RUN xbps-install -y -S gcc make git inotify-tools
-RUN xbps-install -y -S postgresql-client postgresql-libs postgresql-libs-devel
-RUN xbps-install -y -S python3 python3-devel python3-pip
+RUN apk update
+RUN apk upgrade
+RUN apk add build-base gcc linux-headers
+RUN apk add postgresql-client postgresql-dev
+RUN apk add python3 python3-dev
 
-RUN pip3 install tox
+RUN pip3 install -U pip setuptools
+RUN pip3 install pipsi pipenv uwsgi
 
-ADD . /opt/services
-WORKDIR /opt/services
+ADD . /opt/metanic/services
+WORKDIR /opt/metanic/services
 
-RUN tox -e package
+RUN pipenv install
+
+# Clean up our mess
+RUN apk del --no-cache --purge build-base gcc postgresql-dev linux-headers
 
 EXPOSE 8000
 
-CMD ["python3", "-m", "metanic": "runserver_plus"]
+CMD ["uwsgi", "-c", "uwsgi.ini"]
