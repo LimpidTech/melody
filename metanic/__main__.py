@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
+from metanic import command_line
 
-from django.core import management
-
-management.execute_from_command_line(sys.argv)
+command_line.execute()

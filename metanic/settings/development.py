@@ -32,9 +32,8 @@ ACCESS_CONTROL_ALLOW_ORIGINS = [
 ]
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
-REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += (
-    'rest_framework.authentication.SessionAuthentication',
-)
+REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'
+               ] += ('rest_framework.authentication.SessionAuthentication',)
 
 REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
     'anon': env_value('anon_throttle_rate', default='100/second'),
@@ -60,10 +59,15 @@ CACHES = {
 }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': project_path(env_value('DATABASE_FILENAME', 'metanic.sqlite3')),
-    },
+    'default':
+        {
+            'ENGINE':
+                'django.db.backends.sqlite3',
+            'NAME':
+                project_path(
+                    env_value('DATABASE_FILENAME', 'metanic.sqlite3')
+                ),
+        },
 }
 
 ALLOWED_HOSTS = [

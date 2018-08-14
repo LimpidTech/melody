@@ -2,7 +2,6 @@ import uuid
 
 from django.db import models
 
-
 # Using `import *` here to inherit the entire Django Model interface
 from django.db.models import *  # noqa
 
@@ -48,5 +47,5 @@ class CreateUpdateModel(Model):
 
         ordering = (
             'created',
-            '-last_modified',
+            'last_modified',
         )

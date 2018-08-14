@@ -18,6 +18,9 @@ class CurrentSiteDefault(object):
 
 
 class MetanicModelSerializer(HyperlinkedModelSerializer):
+    class Meta(object):
+        pass
+
     local_reference = SerializerMethodField()
 
     def get_extended_fields(self):

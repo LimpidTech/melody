@@ -25,8 +25,14 @@ class PostTopic(models.Model):
 
 
 class PostCategory(models.Model):
-    post_id = models.ForeignKey('posts.Post', on_delete=models.DO_NOTHING)
-    category_id = models.ForeignKey('posts.Category', on_delete=models.DO_NOTHING)
+    post_id = models.ForeignKey(
+        'posts.Post',
+        on_delete=models.DO_NOTHING,
+    )
+
+    category_id = models.ForeignKey(
+        'posts.Category', on_delete=models.DO_NOTHING
+    )
 
 
 @interface.implementer(collection.ICollection)
@@ -82,14 +88,19 @@ class Category(Topic):
         return super(Category, self).save(*args, **kwargs)
 
 
-class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel):
+class Post(renderer.Renderable, models.MultiSiteModel,
+           models.CreateUpdateModel):
     class Meta(models.CreateUpdateModel.Meta):
         ordering = (
             '-pinned_order',
-        ) + models.CreateUpdateModel.Meta.ordering
+            '-created',
+            '-last_modified',
+        )
 
     subject = models.TextField()
+
     body = models.TextField()
+    summary = models.TextField(blank=True)
 
     pinned_order = models.PositiveIntegerField(
         default=None,
@@ -126,6 +137,9 @@ class Post(renderer.Renderable, models.MultiSiteModel, models.CreateUpdateModel)
         on_delete=models.PROTECT,
         related_name='replies',
     )
+
+    def is_pinned(self):
+        return self.pinned_order is not None
 
     def __str__(self):
         return self.subject
